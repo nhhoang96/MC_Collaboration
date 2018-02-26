@@ -1,0 +1,3 @@
+rootProject.name = 'MC_Collaboration'
+
+include ':app'
