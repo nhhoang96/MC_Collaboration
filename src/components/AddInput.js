@@ -30,7 +30,7 @@ const Styles = {
   },
   inputStyle: {
     flex: 2,
-    lineHeight: 30
+    lineHeight: 20
   },
   textStyle: {
     fontSize: 18
