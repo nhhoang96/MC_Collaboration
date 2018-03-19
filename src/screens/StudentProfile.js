@@ -44,11 +44,11 @@ const StudentProfile = () => {
         <Text>Minor: Business Administration</Text>
       </View>
 
-      <InfoBlock text="Interests" />
+      <InfoBlock info={state.interests} title="Interests" />
 
-      <InfoBlock />
+      <InfoBlock info={state.currentclasses} title="Current Classes" />
 
-      <InfoBlock />
+      <InfoBlock info={state.prevclasses} title="Previous Classes" />
     </ScrollView>
   );
 };

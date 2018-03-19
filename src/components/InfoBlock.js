@@ -2,14 +2,11 @@ import React, { Component } from "react";
 import { View, Text } from "react-native";
 import textStyles from "./styles/text";
 
-const InfoBlock = text => {
+const InfoBlock = ({ info, title }) => {
   return (
     <View style={styles.container}>
-      <Text style={textStyles.subHeaderText}>{text}</Text>
-      <Text>
-        Artificial Intelligence, Human Computer Interaction, Web Development,
-        Mobile Development
-      </Text>
+      <Text style={textStyles.subHeaderText}>{title}</Text>
+      <Text>{info.map(e => e + ", ")}</Text>
     </View>
   );
 };
