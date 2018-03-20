@@ -4,7 +4,7 @@ import StudentProfile from "./src/screens/StudentProfile";
 
 class App extends Component {
   render() {
-    return <StudentProfile />;
+    return <AddInfo />;
   }
 }
 

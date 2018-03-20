@@ -1,7 +1,6 @@
 import React from "react";
 import { View, Text, TextInput } from "react-native";
-import Icon from "react-native-fa-icons";
-
+import Icon from "react-native-vector-icons/dist/FontAwesome";
 const AddInput = ({ text, placeholder }) => {
   const { containerStyle, rowStyle, inputStyle, textStyle } = Styles;
   return (
@@ -9,7 +8,7 @@ const AddInput = ({ text, placeholder }) => {
       <Text style={textStyle}>{text}</Text>
       <View style={rowStyle}>
         <TextInput style={inputStyle} placeholder={placeholder} />
-        <Icon name="address-book" style={{ fontSize: 25, color: "green" }} />
+        <Icon name="plus-circle" size={30} color="#000000" />
       </View>
     </View>
   );
