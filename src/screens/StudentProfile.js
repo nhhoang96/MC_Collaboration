@@ -5,6 +5,7 @@ import Icon from "react-native-vector-icons/dist/FontAwesome";
 import InfoBlock from "../components/InfoBlock";
 import textStyles from "../components/styles/text";
 import AddInput from "../components/AddInput";
+import DisplayImage from "../components/DisplayImage"
 
 const StudentProfile = () => {
   state = {
@@ -58,10 +59,7 @@ const StudentProfile = () => {
               )}
             </View>
             <View style={styles.thumbnailContainerStyle}>
-              <Image
-                style={styles.thumbnailStyle}
-                source={{ uri: "../components/img/male-circle-512.png" }}
-              />
+        <DisplayImage />
             </View>
           </View>
 
