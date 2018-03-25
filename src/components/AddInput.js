@@ -1,14 +1,30 @@
 import React from "react";
-import { View, Text, TextInput } from "react-native";
+import { View, Text, TextInput, Picker, TouchableOpacity } from "react-native";
+import textStyles from "../components/styles/text";
 import Icon from "react-native-vector-icons/dist/FontAwesome";
-const AddInput = ({ text, placeholder }) => {
+const AddInput = ({ labels, text }) => {
+  state = {
+    number: "1",
+    classes: ["First Year", "Sophomore", "Junior", "Senoir"],
+    labels: labels
+  };
   const { containerStyle, rowStyle, inputStyle, textStyle } = Styles;
   return (
     <View style={containerStyle}>
-      <Text style={textStyle}>{text}</Text>
+      <Text style={textStyles.label}>{text}</Text>
       <View style={rowStyle}>
-        <TextInput style={inputStyle} placeholder={placeholder} />
-        <Icon name="plus-circle" size={30} color="#000000" />
+        <Picker
+          style={inputStyle}
+          selectedValue={this.state.number}
+          onValueChange={itemValue => {
+            this.setState({ number: itemValue });
+          }}
+        >
+          <Picker.Item label="1" value="1" />
+          <Picker.Item label="2" value="2" />
+          <Picker.Item label="3" value="3" />
+          <Picker.Item label="4" value="4" />
+        </Picker>
       </View>
     </View>
   );
@@ -28,11 +44,7 @@ const Styles = {
     paddingRight: 15
   },
   inputStyle: {
-    flex: 2,
-    lineHeight: 20
-  },
-  textStyle: {
-    fontSize: 18
+    flex: 2
   }
 };
 

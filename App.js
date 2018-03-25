@@ -1,10 +1,11 @@
 import React, { Component } from "react";
-import AddInfo from "./src/screens/AddInfo";
 import StudentProfile from "./src/screens/StudentProfile";
+import ProfessorProfile from "./src/screens/ProfessorProfile";
+import CheckProfile from "./src/screens/CheckProfile";
 
 class App extends Component {
   render() {
-    return <AddInfo />;
+    return <ProfessorProfile />;
   }
 }
 

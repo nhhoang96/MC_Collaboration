@@ -11,6 +11,7 @@
     "react": "16.2.0",
     "react-native": "0.53.3",
     "react-native-fa-icons": "^3.0.1",
+    "react-native-pages": "^0.7.0",
     "react-native-vector-icons": "^4.5.0"
   },
   "devDependencies": {
