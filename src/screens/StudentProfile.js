@@ -2,8 +2,10 @@ import React from "react";
 import { View, Text, ScrollView, Image } from "react-native";
 import InfoBlock from "../components/InfoBlock";
 import textStyles from "../components/styles/text";
+import DisplayImage from "../components/DisplayImage"
 
 const StudentProfile = () => {
+  
   return (
     <ScrollView style={styles.containerStyle}>
       <View style={styles.infoContainerStyle}>
@@ -11,12 +13,11 @@ const StudentProfile = () => {
           <Text style={textStyles.headerText}>Elizabeth Pinkham</Text>
           <Text>ep1247@messiah.edu</Text>
         </View>
-        <View style={styles.thumbnailContainerStyle}>
-          <Image
+          {/* <Image
             style={styles.thumbnailStyle}
             source={{ uri: "../components/img/male-circle-512.png" }}
-          />
-        </View>
+          />  */}
+        <DisplayImage />
       </View>
 
       <View>
@@ -61,7 +62,7 @@ const styles = {
     width: 60,
     resizeMode: "contain",
     backgroundColor: "red"
-  }
+  },
 };
 
 export default StudentProfile;

@@ -2,13 +2,18 @@ import React from "react";
 import { View, Text, TextInput } from "react-native";
 import Icon from "react-native-fa-icons";
 
-const AddInput = ({ text, placeholder }) => {
+const AddInput = ({ text, placeholder, value, onChangeText }) => {
   const { containerStyle, rowStyle, inputStyle, textStyle } = Styles;
   return (
     <View style={containerStyle}>
       <Text style={textStyle}>{text}</Text>
       <View style={rowStyle}>
-        <TextInput style={inputStyle} placeholder={placeholder} />
+        <TextInput 
+          style={inputStyle} 
+          placeholder={placeholder}
+          value={value}
+          onChangeText={onChangeText} 
+        />
         <Icon name="address-book" style={{ fontSize: 25, color: "green" }} />
       </View>
     </View>
