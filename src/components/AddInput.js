@@ -25,13 +25,12 @@ const AddInput = ({ text, placeholder, value, onChangeText }) => {
           <Picker.Item label="3" value="3" />
           <Picker.Item label="4" value="4" />
         </Picker>
-        <TextInput 
-          style={inputStyle} 
+        <TextInput
+          style={inputStyle}
           placeholder={placeholder}
           value={value}
-          onChangeText={onChangeText} 
+          onChangeText={onChangeText}
         />
-        <Icon name="address-book" style={{ fontSize: 25, color: "green" }} />
       </View>
     </View>
   );
