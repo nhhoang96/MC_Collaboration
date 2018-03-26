@@ -4,6 +4,7 @@ import { Button, Input, CardSection } from "../components/common";
 import Icon from "react-native-vector-icons/dist/FontAwesome";
 import InfoBlock from "../components/InfoBlock";
 import textStyles from "../components/styles/text";
+import firebase from 'firebase';
 import AddInput from "../components/AddInput";
 import DisplayImage from "../components/DisplayImage"
 
@@ -58,9 +59,6 @@ const StudentProfile = () => {
                 </View>
               )}
             </View>
-            <View style={styles.thumbnailContainerStyle}>
-        <DisplayImage />
-            </View>
           </View>
 
           <View>
@@ -85,11 +83,8 @@ const StudentProfile = () => {
               <Input label={"name"} value={"Elizabeth Pinkham"} />
               <Input label={"email"} value={"ep1247@messiah.edu"} />
             </View>
-            <View style={styles.thumbnailContainerStyle}>
-              <Image
-                style={styles.thumbnailStyle}
-                source={{ uri: "../components/img/male-circle-512.png" }}
-              />
+            <View >
+              <DisplayImage />
             </View>
           </View>
 
@@ -161,7 +156,7 @@ const StudentProfile = () => {
           <InfoBlock info={state.prevclasses} title="Previous Classes" />
           <Icon name="plus-circle" size={30} color="#253A66" />
           <View style={{ marginBottom: 30 }}>
-            <Button style={{ marginTop: 10 }}>
+            <Button style={{ marginTop: 10 }} onPress={() => firebase.auth().signOut()}>
               <Text>Save Changes</Text>
             </Button>
           </View>
