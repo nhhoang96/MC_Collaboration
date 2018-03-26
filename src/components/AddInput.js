@@ -6,7 +6,7 @@ const AddInput = ({ text, placeholder, value, onChangeText }) => {
   state = {
     number: "1",
     classes: ["First Year", "Sophomore", "Junior", "Senoir"],
-    labels: labels
+    //labels: labels
   };
   const { containerStyle, rowStyle, inputStyle, textStyle } = Styles;
   return (
