@@ -1,13 +1,15 @@
 import React from "react";
 import { View, Text, ScrollView, Image, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/dist/FontAwesome";
-import { Button } from "../components/common";
+import { Button, Input, CardSection } from "../components/common";
 import InfoBlock from "../components/InfoBlock";
 import textStyles from "../components/styles/text";
+import DisplayImage from "../components/DisplayImage";
 
 const ProfessorProfile = () => {
   state = {
-    self: 0,
+    self: 1,
+    edit: true,
     interests: ["Web Development", "Database Management", "Networking"],
     currentclasses: [
       "[CIS 432] Database Applications",
@@ -20,53 +22,90 @@ const ProfessorProfile = () => {
     ]
   };
   return (
-    <ScrollView style={styles.containerStyle}>
-      <View style={styles.infoContainerStyle}>
-        <View style={styles.headerContentStyle}>
-          <Text style={textStyles.headerText}>Scott Weaver</Text>
-          <Text>sweaver@messiah.edu</Text>
-          {state.self == 0 && (
-            <TouchableOpacity style={styles.sendMessage}>
-              <Text style={styles.sendMessageText}>Send Message</Text>
-            </TouchableOpacity>
-          )}
-          {state.self == 1 && (
-            <View
-              style={{
-                paddingTop: 5,
-                flexDirection: "row",
-                justifyContent: "space-around"
-              }}
-            >
-              <TouchableOpacity>
-                <Icon name="edit" size={30} color="#2D9AE8" />
+    <View>
+    {state.edit == false &&(
+      <ScrollView style={styles.containerStyle}>
+        <View style={styles.infoContainerStyle}>
+          <View style={styles.headerContentStyle}>
+            <Text style={textStyles.headerText}>Scott Weaver</Text>
+            <Text>sweaver@messiah.edu</Text>
+            {state.self == 0 && (
+              <TouchableOpacity style={styles.sendMessage}>
+                <Text style={styles.sendMessageText}>Send Message</Text>
               </TouchableOpacity>
-              <TouchableOpacity>
-                <Icon name="cog" size={30} color="#2D9AE8" />
-              </TouchableOpacity>
-            </View>
-          )}
+            )}
+            {state.self == 1 && (
+              <View
+                style={{
+                  paddingTop: 5,
+                  flexDirection: "row",
+                  justifyContent: "space-around"
+                }}
+              >
+                <TouchableOpacity>
+                  <Icon name="edit" size={30} color="#2D9AE8" />
+                </TouchableOpacity>
+                <TouchableOpacity>
+                  <Icon name="cog" size={30} color="#2D9AE8" />
+                </TouchableOpacity>
+              </View>
+            )}
+          </View>
+          <View style={styles.thumbnailContainerStyle}>
+            <Image
+              style={styles.thumbnailStyle}
+              source={{ uri: "../components/img/male-circle-512.png" }}
+            />
+          </View>
         </View>
-        <View style={styles.thumbnailContainerStyle}>
-          <Image
-            style={styles.thumbnailStyle}
-            source={{ uri: "../components/img/male-circle-512.png" }}
-          />
+
+        <View>
+          <Text style={{ paddingTop: 10 }}>Frey 333</Text>
+          <Text>Computer and Information Science</Text>
+          <Text>Department Chair</Text>
         </View>
-      </View>
 
-      <View>
-        <Text style={{ paddingTop: 10 }}>Frey 333</Text>
-        <Text>Computer and Information Science</Text>
-        <Text>Department Chair</Text>
-      </View>
+        <InfoBlock info={state.interests} title="Interests" />
 
-      <InfoBlock info={state.interests} title="Interests" />
+        <InfoBlock info={state.currentclasses} title="Current Classes" />
 
-      <InfoBlock info={state.currentclasses} title="Current Classes" />
+        <InfoBlock info={state.pastclasses} title="Previous Classes" />
+      </ScrollView>
+    )}
+    {state.edit == true && (
+      <ScrollView style={styles.containerStyle}>
+        <View style={styles.infoContainerStyle}>
+          <View style={styles.headerContentStyle}>
+            <Input label={"name"} value={"Scott Weaver"} />
+            <Input label={"email"} value={"sweaver@messiah.edu"} />
+          </View>
+          <View>
+            <DisplayImage />
+          </View>
+        </View>
 
-      <InfoBlock info={state.pastclasses} title="Previous Classes" />
-    </ScrollView>
+        <View>
+          <Input label={'office'} value={"Frey 333"} />
+          <Input label={'Department'} value={"Comuter and Information Science"} />
+          <Input label={'Position'} value={"Department Chair"} />
+        </View>
+
+        <InfoBlock info={state.interests} title="Interests" />
+        <Icon name="plus-circle" size={30} color="#253A66" />
+
+        <InfoBlock info={state.currentclasses} title="Current Classes" />
+        <Icon name="plus-circle" size={30} color="#253A66" />
+
+        <InfoBlock info={state.pastclasses} title="Previous Classes" />
+        <Icon name="plus-circle" size={30} color="#253A66" />
+        <View style={{ marginBottom: 30 }}>
+          <Button style={{ marginTop: 10 }} onPress={() => firebase.auth().signOut()}>
+            <Text>Save Changes</Text>
+          </Button>
+        </View>
+      </ScrollView>
+    )}
+    </View>
   );
 };
 

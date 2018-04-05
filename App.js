@@ -8,7 +8,7 @@ import ProfessorProfile from "./src/screens/ProfessorProfile";
 import CheckProfile from "./src/screens/CheckProfile";
 
 class App extends Component {
-  
+
   state = { loggedIn: false };
 
   componentWillMount() {
@@ -20,7 +20,7 @@ class App extends Component {
       storageBucket: "mc-collaboration.appspot.com",
       messagingSenderId: "724728798440"
     });
-    
+
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         this.setState({ loggedIn: true });
@@ -33,7 +33,7 @@ class App extends Component {
   renderContent() {
     switch (this.state.loggedIn) {
       case true:
-        return <StudentProfile />;
+        return <ProfessorProfile />;
       case false:
         return <LoginForm />;
       // default:
@@ -48,7 +48,7 @@ class App extends Component {
         {this.renderContent()}
       </View>
     );
-  }  
+  }
 }
 
 export default App;

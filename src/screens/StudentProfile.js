@@ -6,7 +6,7 @@ import InfoBlock from "../components/InfoBlock";
 import textStyles from "../components/styles/text";
 import firebase from 'firebase';
 import AddInput from "../components/AddInput";
-import DisplayImage from "../components/DisplayImage"
+import DisplayImage from "../components/DisplayImage";
 
 const StudentProfile = () => {
   state = {
