@@ -1,10 +1,13 @@
 import React, { Component } from "react";
 import { View } from 'react-native';
 import { Header, Spinner } from './src/components/common';
-import StudentProfile from "./src/screens/StudentProfile";
 import firebase from "firebase";
+
+import { StackNavigator } from 'react-navigation';
+
 import LoginForm from "./src/LoginForm";
 import ProfessorProfile from "./src/screens/ProfessorProfile";
+import StudentProfile from "./src/screens/StudentProfile";
 import CheckProfile from "./src/screens/CheckProfile";
 
 class App extends Component {
@@ -42,6 +45,12 @@ class App extends Component {
     }
 
   render() {
+    const MainNavigator = StackNavigator({
+      login: { screen: LoginForm },
+      checkProfile: { screen: CheckProfile },
+      professorHome: { screen: ProfessorProfile },
+      studentHome: { screen: StudentProfile }
+    })
     return (
       <View>
         {/* <Header headerText="MC_Collaboration" /> */}

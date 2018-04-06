@@ -1,5 +1,5 @@
 {
-  "name": "MC_Collaboration",
+  "name": "mc_collaboration",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -9,12 +9,14 @@
   "dependencies": {
     "firebase": "^4.11.0",
     "npm": "^5.7.1",
+    "npm-git-install": "^0.3.0",
     "react": "16.2.0",
     "react-native": "0.53.3",
     "react-native-fetch-blob": "^0.10.8",
     "react-native-image-picker": "^0.26.7",
     "react-native-pages": "^0.7.0",
-    "react-native-vector-icons": "^4.5.0"
+    "react-native-vector-icons": "^4.5.0",
+    "react-navigation": "^1.5.11"
   },
   "devDependencies": {
     "babel-jest": "22.4.1",
@@ -25,5 +27,17 @@
   },
   "jest": {
     "preset": "react-native"
-  }
+  },
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nhhoang96/MC_Collaboration.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nhhoang96/MC_Collaboration/issues"
+  },
+  "homepage": "https://github.com/nhhoang96/MC_Collaboration#readme",
+  "description": ""
 }
