@@ -10,6 +10,7 @@ import ProfessorProfile from "./src/screens/ProfessorProfile";
 import StudentProfile from "./src/screens/StudentProfile";
 import CheckProfile from "./src/screens/CheckProfile";
 import Messaging from "./src/screens/Messaging";
+import Test from "./src/screens/Test";
 
 class App extends Component {
 

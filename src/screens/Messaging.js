@@ -8,18 +8,18 @@ class Messaging extends Component {
     users: [
       {
         "name": "Elizabeth Pinkham",
-        "img" : "../img/male-circle-512.png"
+        "img" : "https://upload.wikimedia.org/wikipedia/commons/9/9b/Fashion-person-woman-girl-2_%2823957415829%29.jpg"
       },
       {
         "name": "Hoang Nguyen",
-        "img" : "../img/male-circle-512.png"
+        "img" : "https://upload.wikimedia.org/wikipedia/commons/0/08/Omri_Levy_Picture.jpg"
       },
       {
-        "name": "Kelly Hopkins",
-        "img" : "../img/male-circle-512.png"
+        "name": "Mary Green",
+        "img" : "https://commons.wikimedia.org/wiki/Category:Images#/media/File:Simisola_Omotoso_Silhouette_(Signature).png"
       },{
-        "name": "David Park",
-        "img" : "../img/male-circle-512.png"
+        "name": "John Doe",
+        "img" : "https://commons.wikimedia.org/wiki/Category:Images#/media/File:Sean_Kandel_Photo.png"
       },
 
     ]
@@ -28,7 +28,7 @@ class Messaging extends Component {
     return (
       <View>
         <Header headerText="Messages"/>
-        {this.state.users.map((e, i) => <UserBlock key={i} image={e.img} name={e.name} />)}
+        {this.state.users.map(e => <UserBlock key={e.name} image={e.img} name={e.name} />)}
       </View>
 
     )
