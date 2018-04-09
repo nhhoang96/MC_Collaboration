@@ -9,6 +9,7 @@ import LoginForm from "./src/LoginForm";
 import ProfessorProfile from "./src/screens/ProfessorProfile";
 import StudentProfile from "./src/screens/StudentProfile";
 import CheckProfile from "./src/screens/CheckProfile";
+import Messaging from "./src/screens/Messaging";
 
 class App extends Component {
 
@@ -36,7 +37,7 @@ class App extends Component {
   renderContent() {
     switch (this.state.loggedIn) {
       case true:
-        return <ProfessorProfile />;
+        return <Messaging />;
       case false:
         return <LoginForm />;
       // default:

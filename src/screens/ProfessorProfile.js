@@ -9,7 +9,7 @@ import DisplayImage from "../components/DisplayImage";
 const ProfessorProfile = () => {
   state = {
     self: 1,
-    edit: true,
+    edit: false,
     interests: ["Web Development", "Database Management", "Networking"],
     currentclasses: [
       "[CIS 432] Database Applications",
