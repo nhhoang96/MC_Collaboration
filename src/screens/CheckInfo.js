@@ -1,4 +1,5 @@
-import React, { Component } from "react";
+import React from "react";
+import { Component } from 'react';
 import {
   View,
   Text,
@@ -13,6 +14,10 @@ import Icon from "react-native-vector-icons/dist/FontAwesome";
 import AddInput from "../components/AddInput";
 
 class CheckInfo extends Component {
+  constructor(props) {
+    super(props);
+  }
+
   state = {
     majors: [<AddInput text="Major(s)" labels={["1", "2", "3"]} key={0} />],
     classes: ["First Year", "Sophomore", "Junoir", "Senior"]
@@ -59,7 +64,7 @@ class CheckInfo extends Component {
         </ScrollView>
       </View>
     );
-  }
+  };
 }
 
 const styles = {

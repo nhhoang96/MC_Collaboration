@@ -27,7 +27,7 @@ class AddInfo extends Component {
     var ref = db.ref();
     var userRef = ref.child('users');
     userRef.set({
-      ep1247: {
+      'ep1247': {
         minor: this.state.minor,
         concentration: this.state.concentration,
         interest: this.state.interest 

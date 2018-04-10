@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import { View, Text, ScrollView, Image, TouchableOpacity } from "react-native";
 import { Button, Input, CardSection } from "../components/common";
 import Icon from "react-native-vector-icons/dist/FontAwesome";
@@ -8,27 +8,117 @@ import firebase from 'firebase';
 import AddInput from "../components/AddInput";
 import DisplayImage from "../components/DisplayImage"
 
-const StudentProfile = () => {
-  state = {
-    self: 0,
-    edit: true,
-    interests: [
-      "Artificial Intelligence",
-      "Human Computer Interaction",
-      "Web Development",
-      "Mobile Development"
-    ],
-    currentclasses: [
-      "[CIS 412] System Analysis and Design Applications",
-      "[CIS 418] Artificial Intelligence"
-    ],
-    prevclasses: [
-      "[CIS 411] Systems Analysis and Design Concepts",
-      "[CIS 291] Web Development: Server Side",
-      "[CIS 432] Database Applications"
-    ]
+var index = 1;
+var indexMin = 1;
+var indexCon = 1;
+//var index = 2;
+class StudentProfile extends Component {
+  constructor(props) {
+    super(props);
+    state = {
+      self: 0,
+      edit: true,
+      count: [],
+      studentval: [],
+      year: ['Freshman', 'Sophomore', 'Junior', 'Senior'],
+      majors: ['Computer Science', 'Business', 'Accounting'],
+      curMaj:[],
+      curMinor:[],
+      curConcen:[],
+      minors: ['Mathematics', 'English', 'Biology'],
+      concentrations: ['Computer Science', 'Software Development', 'Web Development', 'Business Information System'],
+      interests: [
+        "Artificial Intelligence",
+        "Human Computer Interaction",
+        "Web Development",
+        "Mobile Development"
+      ],
+      currentclasses: [
+        "[CIS 412] System Analysis and Design Applications",
+        "[CIS 418] Artificial Intelligence"
+      ],
+      prevclasses: [
+        "[CIS 411] Systems Analysis and Design Concepts",
+        "[CIS 291] Web Development: Server Side",
+        "[CIS 432] Database Applications"
+      ]
+    };
+    this.userRef = firebase.database().ref('users').child('ep1247');
   };
+  
+  componentDidMount() {
+    this.listenForTasks(this.userRef);
+    
+  }
 
+  listenForTasks(userRef) {
+    userRef.on('value', (dataSnapshot) => {
+      var studentval =[];
+      dataSnapshot.forEach((child) => {
+        studentval.push({
+          name: child.val().name,
+          _key: child.key
+        });
+    });
+    this.setState({
+      studentval: studentval
+    });
+  });
+
+//   updateUser = (snapshot) => {
+//     //this.setState({ studentval: snapshot.child('concentration').val() });
+//     return snapshot.child('concentration').val();
+//  }
+//   async get_firebase_list(){
+//     return firebase.database().ref('users').once('value').then(function(snapshot) {
+//         var items = [];
+//         snapshot.forEach(function(childSnapshot) {
+//           var childKey = childSnapshot.key;
+//           var childData = childSnapshot.val();
+//           items.push(childData);
+//           <Text>childData</Text>
+//         }); 
+//         console.log("items_load: " + items);
+        
+//         return items;
+//     });
+  };
+  
+  _addMajor() {
+    let temp = this.index ++;
+    state.curMaj.push(temp);
+    this.setState({
+        curMaj: state.curMaj
+    });
+  }
+
+  _addMinor() {
+    let temp = this.indexMin ++;
+    state.curMinor.push(temp);
+    this.setState({
+        curMinor: state.curMinor
+    });
+  }
+
+  _addConcen() {
+    let temp = this.indexCon ++;
+    state.curConcen.push(temp);
+    this.setState({
+      curConcen: state.curConcen
+    });
+  }
+  render() {
+    let curMaj = state.curMaj.map((a, i) => {
+      return <AddInput title={"Major"} options={state.majors} key={i}/>                      
+    })
+
+    let curMinor = state.curMinor.map((a, i) => {
+      return <AddInput title={"Concentration"} options={state.minors} key={i}/>                      
+    })
+    
+    let curConcen = state.curConcen.map((a, i) => {
+      return <AddInput title={"Minor"} options={state.concentrations} key={i}/>                      
+    })
   return (
     <View>
       {state.edit == false && (
@@ -80,8 +170,18 @@ const StudentProfile = () => {
         <ScrollView style={styles.containerStyle}>
           <View style={styles.infoContainerStyle}>
             <View style={styles.headerContentStyle}>
-              <Input label={"name"} value={"Elizabeth Pinkham"} />
-              <Input label={"email"} value={"ep1247@messiah.edu"} />
+            
+              <Text>{ state.studentval.name }</Text>
+              <Input label={"Name"} value={ "Test"
+                // userRoot.once('value').then(function(snapshot) {
+                //   this.setState({ studentval: snapshot.val() });
+                //   return String(snapshot.child('name').val());
+                // })
+                //state.studentval
+              } />
+              <Input label={"Email"} value={"ep1247@messiah.edu"} />
+              {/* <View>{username}</View> */}
+             
             </View>
             <View >
               <DisplayImage />
@@ -89,58 +189,32 @@ const StudentProfile = () => {
           </View>
 
           <View>
-            <AddInput text="Class" />
+            <AddInput title={"Year"} options={state.year}/>
             <CardSection>
-              <AddInput text="Major(s)" labels={["1", "2", "3"]} key={0} />
+              {curMaj}
               <TouchableOpacity
+                onPress={() => this._addMajor()}
                 style={{ alignSelf: "flex-end" }}
-                onPress={() => {
-                  this.state.majors.push(
-                    <AddInput
-                      text="Major(s)"
-                      labels={["1", "2", "3"]}
-                      key={this.state.majors.length}
-                    />
-                  );
-                }}
               >
+              
                 <Icon name="plus-circle" size={30} color="#253A66" />
               </TouchableOpacity>
             </CardSection>
             <CardSection>
-              <AddInput
-                text="Concentration(s)"
-                labels={["1", "2", "3"]}
-                key={0}
-              />
-              <TouchableOpacity
+              {curConcen}
+            <TouchableOpacity
+                onPress={() => this._addConcen()}
                 style={{ alignSelf: "flex-end" }}
-                onPress={() => {
-                  this.state.majors.push(
-                    <AddInput
-                      text="Major(s)"
-                      labels={["1", "2", "3"]}
-                      key={this.state.majors.length}
-                    />
-                  );
-                }}
               >
                 <Icon name="plus-circle" size={30} color="#253A66" />
               </TouchableOpacity>
             </CardSection>
+
             <CardSection>
-              <AddInput text="Minor(s)" labels={["1", "2", "3"]} key={0} />
-              <TouchableOpacity
+            {curMinor}
+            <TouchableOpacity
+                onPress={() => this._addMinor()}
                 style={{ alignSelf: "flex-end" }}
-                onPress={() => {
-                  this.state.majors.push(
-                    <AddInput
-                      text="Major(s)"
-                      labels={["1", "2", "3"]}
-                      key={this.state.majors.length}
-                    />
-                  );
-                }}
               >
                 <Icon name="plus-circle" size={30} color="#253A66" />
               </TouchableOpacity>
@@ -165,6 +239,7 @@ const StudentProfile = () => {
     </View>
   );
 };
+}
 
 const styles = {
   infoContainerStyle: {
