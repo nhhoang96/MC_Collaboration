@@ -53,7 +53,7 @@ class AddInfo extends Component {
 
   render() {
     return (
-      <View style={styles.containerStyle}>
+      <View>
         <ScrollView style={styles.infoContainerStyle}>
           <View style={styles.headerContentStyle}>
             <Text style={textStyles.headerText}>Welcome, Elizabeth!</Text>
@@ -126,13 +126,13 @@ class AddInfo extends Component {
         <CardSection>
         <Button onPress={this.onButtonPress.bind(this)} >Submit</Button>
         </CardSection>
-        </ScrollView>
-        <View style={styles.footerContainer}>
-          <View style={styles.next}>
-            <Text style={{ marginRight: 10, marginBottom: 5 }}>Save</Text>
-            <Icon name="chevron-circle-right" size={25} />
-          </View>
+        <View style={{ paddingTop: 10, flexDirection: 'row', justifyContent: 'flex-end'}}>
+          <TouchableOpacity onPress={() => this.props.navigation.navigate('addClass')}>
+            <Text style={textStyles.label}>Next</Text>
+            <Icon name="arrow-circle-right" size={30} style={{ color: "#253A66" }}/>
+          </TouchableOpacity>
         </View>
+        </ScrollView>
       </View>
     );
   }

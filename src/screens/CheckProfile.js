@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View } from "react-native";
+import { View, Text } from "react-native";
 import { Pages } from "react-native-pages";
 import CheckInfo from "./CheckInfo";
 import AddInfo from "./AddInfo";

@@ -9,8 +9,28 @@ import LoginForm from "./src/LoginForm";
 import ProfessorProfile from "./src/screens/ProfessorProfile";
 import StudentProfile from "./src/screens/StudentProfile";
 import CheckProfile from "./src/screens/CheckProfile";
+import CheckInfo from './src/screens/CheckInfo';
+import AddInfo from './src/screens/AddInfo';
+import AddClass from './src/screens/AddClass';
 import Messaging from "./src/screens/Messaging";
 import Test from "./src/screens/Test";
+
+const MainNavigator = StackNavigator(
+  {
+    login : { screen : LoginForm},
+    professor : { screen : ProfessorProfile},
+    student : { screen : StudentProfile },
+    checkProfile : { screen : CheckProfile},
+    checkInfo : { screen : CheckInfo},
+    addInfo : { screen : AddInfo},
+    addClass : { screen : AddClass},
+    chatList : { screen : Messaging}
+  },
+  {
+    initialRouteName: 'checkInfo',
+    headerMode: 'none',
+  }
+)
 
 class App extends Component {
 
@@ -38,7 +58,7 @@ class App extends Component {
   renderContent() {
     switch (this.state.loggedIn) {
       case true:
-        return <Messaging />;
+        return <StudentProfile />;
       case false:
         return <LoginForm />;
       // default:
@@ -47,17 +67,8 @@ class App extends Component {
     }
 
   render() {
-    const MainNavigator = StackNavigator({
-      login: { screen: LoginForm },
-      checkProfile: { screen: CheckProfile },
-      professorHome: { screen: ProfessorProfile },
-      studentHome: { screen: StudentProfile }
-    })
     return (
-      <View>
-        {/* <Header headerText="MC_Collaboration" /> */}
-        {this.renderContent()}
-      </View>
+      <MainNavigator />
     );
   }
 }
