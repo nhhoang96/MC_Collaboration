@@ -9,7 +9,7 @@ class AddClass extends Component {
   render() {
     return (
       <View>
-        <ScrollView>
+        <ScrollView style={styles.infoContainerStyle}>
           <View>
             <Text style={textStyles.headerText}>Welcome, Elizabeth!</Text>
             <Text>
@@ -18,10 +18,48 @@ class AddClass extends Component {
             </Text>
           </View>
 
-        <CardSection>
-        <Button>Submit</Button>
-        </CardSection>
-        <View style={{ paddingTop: 10, flexDirection: 'row', justifyContent: 'flex-end'}}>
+          <CardSection>
+            <AddInput text="Previous Classes" placeholder="ex. [CIS 180] Intro to Computer Science" />
+            <TouchableOpacity
+              style={{ alignSelf: "flex-end" }}
+              onPress={() => {
+                this.state.majors.push(
+                  <AddInput
+                    text="Major(s)"
+                    labels={["1", "2", "3"]}
+                    key={this.state.majors.length}
+                  />
+                );
+              }}
+            >
+              <Icon name="plus-circle" size={30} color="#253A66" />
+            </TouchableOpacity>
+          </CardSection>
+
+          <CardSection>
+            <AddInput text="Current Classes" placeholder="ex. [CIS 191] Web Development I" />
+            <TouchableOpacity
+              style={{ alignSelf: "flex-end" }}
+              onPress={() => {
+                this.state.majors.push(
+                  <AddInput
+                    text="Major(s)"
+                    labels={["1", "2", "3"]}
+                    key={this.state.majors.length}
+                  />
+                );
+              }}
+            >
+              <Icon name="plus-circle" size={30} color="#253A66" />
+            </TouchableOpacity>
+          </CardSection>
+
+
+          <View style={{ paddingTop: 10, flexDirection: 'row', justifyContent: 'space-between'}}>
+          <TouchableOpacity onPress={() => this.props.navigation.navigate('addInfo')}>
+            <Text style={textStyles.label}>Back</Text>
+            <Icon name="arrow-circle-left" size={30} style={{ color: "#253A66" }}/>
+          </TouchableOpacity>
           <TouchableOpacity onPress={() => this.props.navigation.navigate('student')}>
             <Text style={textStyles.label}>Next</Text>
             <Icon name="arrow-circle-right" size={30} style={{ color: "#253A66" }}/>

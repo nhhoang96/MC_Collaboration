@@ -126,7 +126,11 @@ class AddInfo extends Component {
         <CardSection>
         <Button onPress={this.onButtonPress.bind(this)} >Submit</Button>
         </CardSection>
-        <View style={{ paddingTop: 10, flexDirection: 'row', justifyContent: 'flex-end'}}>
+        <View style={{ paddingTop: 10, flexDirection: 'row', justifyContent: 'space-between'}}>
+        <TouchableOpacity onPress={() => this.props.navigation.navigate('checkInfo')}>
+          <Text style={textStyles.label}>Back</Text>
+          <Icon name="arrow-circle-left" size={30} style={{ color: "#253A66" }}/>
+        </TouchableOpacity>
           <TouchableOpacity onPress={() => this.props.navigation.navigate('addClass')}>
             <Text style={textStyles.label}>Next</Text>
             <Icon name="arrow-circle-right" size={30} style={{ color: "#253A66" }}/>

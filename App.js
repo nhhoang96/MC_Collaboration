@@ -13,7 +13,6 @@ import CheckInfo from './src/screens/CheckInfo';
 import AddInfo from './src/screens/AddInfo';
 import AddClass from './src/screens/AddClass';
 import Messaging from "./src/screens/Messaging";
-import Test from "./src/screens/Test";
 
 const MainNavigator = StackNavigator(
   {

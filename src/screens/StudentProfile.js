@@ -73,6 +73,10 @@ render(){
           <InfoBlock info={this.state.currentclasses} title="Current Classes" />
 
           <InfoBlock info={this.state.prevclasses} title="Previous Classes" />
+
+          <View style={{ width: 100, marginTop: 12 }}>
+            <Button onPress={() => this.props.navigation.navigate('chatList')}>Messages</Button>
+          </View>
         </ScrollView>
       )}
 
