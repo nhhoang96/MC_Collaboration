@@ -32,8 +32,8 @@ const MainNavigator = StackNavigator(
 )
 
 class App extends Component {
-
-  state = { loggedIn: false };
+  
+  state = { loggedIn: null };
 
   componentWillMount() {
     firebase.initializeApp({
@@ -57,11 +57,12 @@ class App extends Component {
   renderContent() {
     switch (this.state.loggedIn) {
       case true:
-        return <StudentProfile />;
+        return <StudentProfile/>;
       case false:
-        return <LoginForm />;
-      // default:
-      //   return <LoginForm />;
+        return <StudentProfile/>;
+      default:
+        return <Spinner size="large" />;
+        // return <CheckInfo/>;
       }
     }
 

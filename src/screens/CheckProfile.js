@@ -5,6 +5,10 @@ import CheckInfo from "./CheckInfo";
 import AddInfo from "./AddInfo";
 
 class CheckProfile extends Component {
+  constructor(props) {
+    super(props);
+  }
+  
   render() {
     return (
       <Pages indicatorColor={"rgb(100, 100, 100)"}>

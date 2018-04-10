@@ -23,23 +23,43 @@ window.Blob = Blob
 class DisplayImage extends Component {
 
   constructor(){
-    super()
-    this.getImage = this.getImage.bind(this)
+    super();
+    this.checkImage.bind(this);
+    this.getImage = this.getImage.bind(this);
     this.state = {
-      image_uri: null
+      image_uri: null,
+      loggedIn: true,
     }
     console.ignoredYellowBox = [
       'Setting a timer'
       ];
+      
 }
-
+    checkImage() {
+      const imageRef = firebase.storage().ref('profile_images');
+      imageRef.child("ep1247.png").getDownloadURL().then(function(url) {
+        // `url` is the download URL for 'images/stars.jpg'
+      
+        // This can be downloaded directly:
+        var xhr = new XMLHttpRequest();
+        xhr.responseType = 'blob';
+        xhr.onload = function(event) {
+          var blob = xhr.response;
+        };
+        xhr.open('GET', url);
+        xhr.send();
+        this.setState({image_uri: url});
+        return (<Text>image_uri</Text>);
+      
+      });
+    }
     // Prepare Blob support
   
     uploadImage(uri, mime= 'application/octet-stream') {
       return new Promise((resolve, reject) => {
         const uploadUri = Platform.OS === 'ios'? uri.replace('file://', '') : uri
         let uploadBlob = null
-        const imageRef = firebase.storage().ref('profile_images').child('ep1247')
+        const imageRef = firebase.storage().ref('profile_images').child('ep1247.png')
         fs.readFile(uploadUri, 'base64')
           .then((data) => {
             return Blob.build(data, { type: `${mime};BASE64` })
