@@ -43,27 +43,27 @@ class StudentProfile extends Component {
         "[CIS 432] Database Applications"
       ]
     };
-    this.userRef = firebase.database().ref('users').child('ep1247');
+    // this.userRef = firebase.database().ref('users').child('ep1247');
   };
-  
-  componentDidMount() {
-    this.listenForTasks(this.userRef);
-    
-  }
 
-  listenForTasks(userRef) {
-    userRef.on('value', (dataSnapshot) => {
-      var studentval =[];
-      dataSnapshot.forEach((child) => {
-        studentval.push({
-          name: child.val().name,
-          _key: child.key
-        });
-    });
-    this.setState({
-      studentval: studentval
-    });
-  });
+  // componentDidMount() {
+  //   this.listenForTasks(this.userRef);
+  //
+  // }
+
+  // listenForTasks(userRef) {
+  //   userRef.on('value', (dataSnapshot) => {
+  //     var studentval =[];
+  //     dataSnapshot.forEach((child) => {
+  //       studentval.push({
+  //         name: child.val().name,
+  //         _key: child.key
+  //       });
+  //   });
+  //   this.setState({
+  //     studentval: studentval
+  //   });
+  // });
 
 //   updateUser = (snapshot) => {
 //     //this.setState({ studentval: snapshot.child('concentration').val() });
@@ -77,13 +77,13 @@ class StudentProfile extends Component {
 //           var childData = childSnapshot.val();
 //           items.push(childData);
 //           <Text>childData</Text>
-//         }); 
+//         });
 //         console.log("items_load: " + items);
-        
+
 //         return items;
 //     });
-  };
-  
+  // };
+
   _addMajor() {
     let temp = this.index ++;
     state.curMaj.push(temp);
@@ -109,15 +109,15 @@ class StudentProfile extends Component {
   }
   render() {
     let curMaj = state.curMaj.map((a, i) => {
-      return <AddInput title={"Major"} options={state.majors} key={i}/>                      
+      return <AddInput title={"Major"} options={state.majors} key={i}/>
     })
 
     let curMinor = state.curMinor.map((a, i) => {
-      return <AddInput title={"Concentration"} options={state.minors} key={i}/>                      
+      return <AddInput title={"Concentration"} options={state.minors} key={i}/>
     })
-    
+
     let curConcen = state.curConcen.map((a, i) => {
-      return <AddInput title={"Minor"} options={state.concentrations} key={i}/>                      
+      return <AddInput title={"Minor"} options={state.concentrations} key={i}/>
     })
   return (
     <View>
@@ -174,7 +174,7 @@ class StudentProfile extends Component {
         <ScrollView style={styles.containerStyle}>
           <View style={styles.infoContainerStyle}>
             <View style={styles.headerContentStyle}>
-            
+
               <Text>{ state.studentval.name }</Text>
               <Input label={"Name"} value={ "Test"
                 // userRoot.once('value').then(function(snapshot) {
@@ -185,7 +185,7 @@ class StudentProfile extends Component {
               } />
               <Input label={"Email"} value={"ep1247@messiah.edu"} />
               {/* <View>{username}</View> */}
-             
+
             </View>
             <View >
               <DisplayImage />
@@ -200,7 +200,7 @@ class StudentProfile extends Component {
                 onPress={() => this._addMajor()}
                 style={{ alignSelf: "flex-end" }}
               >
-              
+
                 <Icon name="plus-circle" size={30} color="#253A66" />
               </TouchableOpacity>
             </CardSection>
@@ -244,7 +244,7 @@ class StudentProfile extends Component {
         </ScrollView>
       )}
     </View>
-  )};
+  );
 };
 }
 

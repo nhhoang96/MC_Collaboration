@@ -10,7 +10,7 @@ class AddInput extends Component {
      //this.title = props.title;
   }
   //const { containerStyle, rowStyle, inputStyle, textStyle } = Styles;
-  
+
   state = {
     title: this.props.title,
     options: this.props.options,
@@ -19,13 +19,13 @@ class AddInput extends Component {
     //labels: labels
   };
 //({ text, placeholder, value, onChangeText }) => {
- 
+
   updateValue = (value) => {
     this.setState({ value: value })
  }
   //this.updateUser = this.updateUser.bind(this);
   render () {
-    let pickerItems = this.state.options.map( (s, i) => {
+    let pickerItems = this.state.options.map((s, i) => {
       return <Picker.Item key={i} value={s} label={s} />
   });
   return (

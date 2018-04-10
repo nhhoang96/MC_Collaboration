@@ -26,13 +26,13 @@ const MainNavigator = StackNavigator(
     chatList : { screen : Messaging}
   },
   {
-    initialRouteName: 'checkInfo',
+    initialRouteName: 'student',
     headerMode: 'none',
   }
 )
 
 class App extends Component {
-  
+
   state = { loggedIn: null };
 
   componentWillMount() {
