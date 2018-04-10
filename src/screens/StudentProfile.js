@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import { View, Text, ScrollView, Image, TouchableOpacity } from "react-native";
 import { Button, Input, CardSection } from "../components/common";
 import Icon from "react-native-vector-icons/dist/FontAwesome";
@@ -8,10 +8,10 @@ import firebase from 'firebase';
 import AddInput from "../components/AddInput";
 import DisplayImage from "../components/DisplayImage";
 
-const StudentProfile = () => {
+class StudentProfile extends Component {
   state = {
-    self: 0,
-    edit: true,
+    self: 1,
+    edit: false,
     interests: [
       "Artificial Intelligence",
       "Human Computer Interaction",
@@ -28,21 +28,21 @@ const StudentProfile = () => {
       "[CIS 432] Database Applications"
     ]
   };
-
+render(){
   return (
     <View>
-      {state.edit == false && (
+      {this.state.edit == false && (
         <ScrollView style={styles.containerStyle}>
           <View style={styles.infoContainerStyle}>
             <View style={styles.headerContentStyle}>
               <Text style={textStyles.headerText}>Elizabeth Pinkham</Text>
               <Text>ep1247@messiah.edu</Text>
-              {state.self == 0 && (
+              {this.state.self == 0 && (
                 <TouchableOpacity style={styles.sendMessage}>
                   <Text style={styles.sendMessageText}>Send Message</Text>
                 </TouchableOpacity>
               )}
-              {state.self == 1 && (
+              {this.state.self == 1 && (
                 <View
                   style={{
                     paddingTop: 5,
@@ -50,7 +50,7 @@ const StudentProfile = () => {
                     justifyContent: "space-around"
                   }}
                 >
-                  <TouchableOpacity>
+                  <TouchableOpacity onPress={() => {this.setState({ edit: true })}}>
                     <Icon name="edit" size={30} color="#2D9AE8" />
                   </TouchableOpacity>
                   <TouchableOpacity>
@@ -68,15 +68,15 @@ const StudentProfile = () => {
             <Text>Minor: Business Administration</Text>
           </View>
 
-          <InfoBlock info={state.interests} title="Interests" />
+          <InfoBlock info={this.state.interests} title="Interests" />
 
-          <InfoBlock info={state.currentclasses} title="Current Classes" />
+          <InfoBlock info={this.state.currentclasses} title="Current Classes" />
 
-          <InfoBlock info={state.prevclasses} title="Previous Classes" />
+          <InfoBlock info={this.state.prevclasses} title="Previous Classes" />
         </ScrollView>
       )}
 
-      {state.edit == true && (
+      {this.state.edit == true && (
         <ScrollView style={styles.containerStyle}>
           <View style={styles.infoContainerStyle}>
             <View style={styles.headerContentStyle}>
@@ -147,23 +147,26 @@ const StudentProfile = () => {
             </CardSection>
           </View>
 
-          <InfoBlock info={state.interests} title="Interests" />
+          <InfoBlock info={this.state.interests} title="Interests" />
           <Icon name="plus-circle" size={30} color="#253A66" />
 
-          <InfoBlock info={state.currentclasses} title="Current Classes" />
+          <InfoBlock info={this.state.currentclasses} title="Current Classes" />
           <Icon name="plus-circle" size={30} color="#253A66" />
 
-          <InfoBlock info={state.prevclasses} title="Previous Classes" />
+          <InfoBlock info={this.state.prevclasses} title="Previous Classes" />
           <Icon name="plus-circle" size={30} color="#253A66" />
           <View style={{ marginBottom: 30 }}>
-            <Button style={{ marginTop: 10 }} onPress={() => firebase.auth().signOut()}>
+            <Button style={{ marginTop: 10 }} onPress={() => this.setState({ edit: false })}>
               <Text>Save Changes</Text>
+            </Button>
+            <Button style={{ marginTop: 10 }} onPress={() => firebase.auth().signOut()}>
+              <Text>Sign Out</Text>
             </Button>
           </View>
         </ScrollView>
       )}
     </View>
-  );
+  )};
 };
 
 const styles = {

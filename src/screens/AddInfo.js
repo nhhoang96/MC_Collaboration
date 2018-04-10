@@ -30,7 +30,7 @@ class AddInfo extends Component {
       ep1247: {
         minor: this.state.minor,
         concentration: this.state.concentration,
-        interest: this.state.interest 
+        interest: this.state.interest
       }
     })
     // database.ref('users/hn1174').set({
@@ -63,9 +63,9 @@ class AddInfo extends Component {
             </Text>
           </View>
           <CardSection>
-          <AddInput 
-            text="Minor(s)" 
-            placeholder="ex.: Math" 
+          <AddInput
+            text="Minor(s)"
+            placeholder="ex.: Math"
             value={this.state.minor}
             onChangeText={minor => this.setState({ minor })}
           />
@@ -85,11 +85,11 @@ class AddInfo extends Component {
             </TouchableOpacity>
           </CardSection>
           <CardSection>
-          <AddInput 
-            text="Interest(s)" 
+          <AddInput
+            text="Interest(s)"
             placeholder="ex.: iOS Development"
             value={this.state.interest}
-            onChangeText={interest => this.setState({ interest })}  
+            onChangeText={interest => this.setState({ interest })}
           />
             <TouchableOpacity
               style={{ alignSelf: "flex-end" }}
