@@ -69,7 +69,6 @@ class App extends Component {
   render() {
     return (
       <MainNavigator />
-      //<StudentProfile/>
     );
   }
 }
