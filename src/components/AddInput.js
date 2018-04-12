@@ -7,6 +7,11 @@ import Icon from "react-native-vector-icons/dist/FontAwesome";
 class AddInput extends Component {
   constructor(props) {
     super(props);
+    text = this.props.text;
+    label = this.props.label;
+    placeholder = this.props.placeholder;
+    value = this.props.value;
+    onChangeText = this.props.onChangeText;
      //this.title = props.title;
   }
   //const { containerStyle, rowStyle, inputStyle, textStyle } = Styles;
@@ -14,7 +19,6 @@ class AddInput extends Component {
   state = {
     number: "1",
     classes: ["First Year", "Sophomore", "Junior", "Senior"],
-    //labels: labels
   };
 //({ text, placeholder, value, onChangeText }) => {
 
@@ -22,16 +26,14 @@ class AddInput extends Component {
     this.setState({ value: value })
  }
   //this.updateUser = this.updateUser.bind(this);
+  
   render () {
-    let pickerItems = this.state.options.map((s, i) => {
-      return <Picker.Item key={i} value={s} label={s} />
-  });
   return (
-    <View style={containerStyle}>
+    <View style={Styles.containerStyle}>
       <Text style={textStyles.label}>{text}</Text>
-      <View style={rowStyle}>
+      <View style={Styles.rowStyle}>
         <TextInput
-          style={inputStyle}
+          style={Styles.inputStyle}
           placeholder={placeholder}
           value={value}
           onChangeText={onChangeText}
