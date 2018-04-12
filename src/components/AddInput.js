@@ -12,7 +12,6 @@ class AddInput extends Component {
     placeholder = this.props.placeholder;
     value = this.props.value;
     onChangeText = this.props.onChangeText;
-     //this.title = props.title;
   }
   //const { containerStyle, rowStyle, inputStyle, textStyle } = Styles;
 
@@ -20,13 +19,12 @@ class AddInput extends Component {
     number: "1",
     classes: ["First Year", "Sophomore", "Junior", "Senior"],
   };
-//({ text, placeholder, value, onChangeText }) => {
+
 
   updateValue = (value) => {
     this.setState({ value: value })
  }
-  //this.updateUser = this.updateUser.bind(this);
-  
+ 
   render () {
   return (
     <View style={Styles.containerStyle}>
