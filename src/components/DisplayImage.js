@@ -37,7 +37,7 @@ class DisplayImage extends Component {
 }
     checkImage() {
       const imageRef = firebase.storage().ref('profile_images');
-      imageRef.child("ep1247.png").getDownloadURL().then(function(url) {
+      imageRef.child("ep1247").getDownloadURL().then(function(url) {
         // `url` is the download URL for 'images/stars.jpg'
       
         // This can be downloaded directly:

@@ -1,46 +1,50 @@
-import React from "react";
+import React, { Component} from "react";
 import { View, Text, TextInput, Picker, TouchableOpacity } from "react-native";
 import textStyles from "../components/styles/text";
 import Icon from "react-native-vector-icons/dist/FontAwesome";
 
 
-class AddInput extends Component {
+class DropDownInput extends Component {
   constructor(props) {
     super(props);
      //this.title = props.title;
   }
   //const { containerStyle, rowStyle, inputStyle, textStyle } = Styles;
-
+  
   state = {
-    number: "1",
-    classes: ["First Year", "Sophomore", "Junior", "Senior"],
+    title: this.props.title,
+    options: this.props.options,
+    value: "",
+    classes: ["First Year", "Sophomore", "Junior", "Senoir"],
     //labels: labels
   };
 //({ text, placeholder, value, onChangeText }) => {
-
+ 
   updateValue = (value) => {
     this.setState({ value: value })
  }
   //this.updateUser = this.updateUser.bind(this);
   render () {
-    let pickerItems = this.state.options.map((s, i) => {
+    let pickerItems = this.state.options.map( (s, i) => {
       return <Picker.Item key={i} value={s} label={s} />
   });
   return (
-    <View style={containerStyle}>
-      <Text style={textStyles.label}>{text}</Text>
-      <View style={rowStyle}>
-        <TextInput
-          style={inputStyle}
-          placeholder={placeholder}
-          value={value}
-          onChangeText={onChangeText}
-        />
+    <View style={Styles.containerStyle}>
+      <Text style={textStyles.label}>{this.state.title}</Text>
+      <View style={Styles.rowStyle}>
+        <Picker
+          style={Styles.inputStyle}
+          selectedValue={this.state.value}
+          onValueChange={this.updateValue}
+        >
+        {pickerItems}
+        </Picker>
       </View>
     </View>
   );
+  return this.state.value;
 };
-
+}
 const Styles = {
   containerStyle: {
     paddingLeft: 10,
@@ -59,4 +63,4 @@ const Styles = {
   }
 };
 
-export default AddInput;
+export default DropDownInput;
