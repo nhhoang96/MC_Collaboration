@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import { View, Text, TextInput, Picker, TouchableOpacity } from "react-native";
 import textStyles from "../components/styles/text";
 import Icon from "react-native-vector-icons/dist/FontAwesome";
@@ -40,6 +40,7 @@ class AddInput extends Component {
     </View>
   );
 };
+}
 
 const Styles = {
   containerStyle: {

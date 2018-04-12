@@ -26,7 +26,7 @@ const MainNavigator = StackNavigator(
     chatList : { screen : Messaging}
   },
   {
-    initialRouteName: 'student',
+    initialRouteName: 'checkInfo',
     headerMode: 'none',
   }
 )
