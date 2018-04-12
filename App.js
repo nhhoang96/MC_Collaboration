@@ -32,7 +32,7 @@ const MainNavigator = StackNavigator(
 )
 
 class App extends Component {
-  
+
   state = { loggedIn: null };
 
   componentWillMount() {
