@@ -11,7 +11,7 @@ import DisplayImage from "../components/DisplayImage";
 var index = 1;
 var indexMin = 1;
 var indexCon = 1;
-//var index = 2;
+
 class StudentProfile extends Component {
   constructor(props) {
     super(props);
