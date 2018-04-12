@@ -121,7 +121,7 @@ class StudentProfile extends Component {
     })
   return (
     <View>
-      {this.state.edit == false && (
+      {state.edit == false && (
         <ScrollView style={styles.containerStyle}>
           <View style={styles.infoContainerStyle}>
             <View style={styles.headerContentStyle}>
@@ -170,7 +170,7 @@ class StudentProfile extends Component {
         </ScrollView>
       )}
 
-      {this.state.edit == true && (
+      {state.edit == true && (
         <ScrollView style={styles.containerStyle}>
           <View style={styles.infoContainerStyle}>
             <View style={styles.headerContentStyle}>
@@ -225,13 +225,13 @@ class StudentProfile extends Component {
             </CardSection>
           </View>
 
-          <InfoBlock info={this.state.interests} title="Interests" />
+          <InfoBlock info={state.interests} title="Interests" />
           <Icon name="plus-circle" size={30} color="#253A66" />
 
-          <InfoBlock info={this.state.currentclasses} title="Current Classes" />
+          <InfoBlock info={state.currentclasses} title="Current Classes" />
           <Icon name="plus-circle" size={30} color="#253A66" />
 
-          <InfoBlock info={this.state.prevclasses} title="Previous Classes" />
+          <InfoBlock info={state.prevclasses} title="Previous Classes" />
           <Icon name="plus-circle" size={30} color="#253A66" />
           <View style={{ marginBottom: 30 }}>
             <Button style={{ marginTop: 10 }} onPress={() => this.setState({ edit: false })}>
