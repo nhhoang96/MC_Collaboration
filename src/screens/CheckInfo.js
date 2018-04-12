@@ -39,7 +39,7 @@ class CheckInfo extends Component {
               <Input label="Name" placeholder="Elizabeth Pinkham" />
             </CardSection>
             <CardSection>
-              <AddInput text="Class" labels={this.state.classes} />
+              <AddInput text="Class" labels={state.classes} />
             </CardSection>
             <CardSection>
               <Input label="Phone Number" placeholder="(123) 456-7890" />
