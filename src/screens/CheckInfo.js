@@ -20,7 +20,7 @@ class CheckInfo extends Component {
   }
 
   state = {
-    majors: [<AddInput text="Major(s)" labels={["1", "2", "3"]} key={0} />],
+    majors: [<AddInput text={"Major"} labels={["1", "2", "3"]} key={0} />],
     classes: ["First Year", "Sophomore", "Junoir", "Senior"]
   };
   render() {

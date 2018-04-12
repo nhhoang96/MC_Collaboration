@@ -5,7 +5,7 @@ import Icon from "react-native-vector-icons/dist/FontAwesome";
 import InfoBlock from "../components/InfoBlock";
 import textStyles from "../components/styles/text";
 import firebase from 'firebase';
-import AddInput from "../components/AddInput";
+import DropDownInput from "../components/DropDownInput";
 import DisplayImage from "../components/DisplayImage";
 
 var index = 1;
@@ -109,15 +109,15 @@ class StudentProfile extends Component {
   }
   render() {
     let curMaj = state.curMaj.map((a, i) => {
-      return <AddInput title={"Major"} options={state.majors} key={i}/>                      
+      return <DropDownInput title={"Major"} options={state.majors} key={i}/>                      
     })
 
     let curMinor = state.curMinor.map((a, i) => {
-      return <AddInput title={"Concentration"} options={state.minors} key={i}/>                      
+      return <DropDownInput title={"Concentration"} options={state.minors} key={i}/>                      
     })
     
     let curConcen = state.curConcen.map((a, i) => {
-      return <AddInput title={"Minor"} options={state.concentrations} key={i}/>                      
+      return <DropDownInput title={"Minor"} options={state.concentrations} key={i}/>                      
     })
   return (
     <View>
@@ -193,7 +193,7 @@ class StudentProfile extends Component {
           </View>
 
           <View>
-            <AddInput title={"Year"} options={state.year}/>
+            <DropDownInput title={"Year"} options={state.year}/>
             <CardSection>
               {curMaj}
               <TouchableOpacity
@@ -244,7 +244,7 @@ class StudentProfile extends Component {
         </ScrollView>
       )}
     </View>
-  )};
+  );
 };
 }
 
