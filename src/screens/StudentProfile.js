@@ -113,11 +113,11 @@ class StudentProfile extends Component {
     })
 
     let curMinor = state.curMinor.map((a, i) => {
-      return <DropDownInput title={"Concentration"} options={state.minors} key={i}/>                      
+      return <DropDownInput title={"Concentration"} options={state.concentrations} key={i}/>                      
     })
     
     let curConcen = state.curConcen.map((a, i) => {
-      return <DropDownInput title={"Minor"} options={state.concentrations} key={i}/>                      
+      return <DropDownInput title={"Minor"} options={state.minors} key={i}/>                      
     })
   return (
     <View>
@@ -158,11 +158,11 @@ class StudentProfile extends Component {
             <Text>Minor: Business Administration</Text>
           </View>
 
-          <InfoBlock info={this.state.interests} title="Interests" />
+          <InfoBlock info={state.interests} title="Interests" />
 
-          <InfoBlock info={this.state.currentclasses} title="Current Classes" />
+          <InfoBlock info={state.currentclasses} title="Current Classes" />
 
-          <InfoBlock info={this.state.prevclasses} title="Previous Classes" />
+          <InfoBlock info={state.prevclasses} title="Previous Classes" />
 
           <View style={{ width: 100, marginTop: 12 }}>
             <Button onPress={() => this.props.navigation.navigate('chatList')}>Messages</Button>
@@ -195,6 +195,7 @@ class StudentProfile extends Component {
           <View>
             <DropDownInput title={"Year"} options={state.year}/>
             <CardSection>
+            <DropDownInput title={"Major"} options={state.majors} key={0}/>  
               {curMaj}
               <TouchableOpacity
                 onPress={() => this._addMajor()}
@@ -205,6 +206,7 @@ class StudentProfile extends Component {
               </TouchableOpacity>
             </CardSection>
             <CardSection>
+            <DropDownInput title={"Concentration"} options={state.concentrations} key={0}/> 
               {curConcen}
             <TouchableOpacity
                 onPress={() => this._addConcen()}
@@ -215,6 +217,7 @@ class StudentProfile extends Component {
             </CardSection>
 
             <CardSection>
+            <DropDownInput title={"Minor"} options={state.minors} key={0}/> 
             {curMinor}
             <TouchableOpacity
                 onPress={() => this._addMinor()}
