@@ -15,7 +15,7 @@ var indexCon = 1;
 class StudentProfile extends Component {
   constructor(props) {
     super(props);
-    
+
     // this.userRef = firebase.database().ref('users').child('ep1247');
   };
 
@@ -115,15 +115,15 @@ class StudentProfile extends Component {
 
   render() {
     let curMaj = this.state.curMaj.map((a, i) => {
-      return <DropDownInput title={"Major"} options={this.state.majors} key={i}/>                      
+      return <DropDownInput title={"Major"} options={this.state.majors} key={i}/>
     })
 
     let curMinor = this.state.curMinor.map((a, i) => {
-      return <DropDownInput title={"Minor"} options={this.state.minors} key={i}/>                      
+      return <DropDownInput title={"Minor"} options={this.state.minors} key={i}/>
     })
 
     let curConcen = this.state.curConcen.map((a, i) => {
-      return <DropDownInput title={"Concentration"} options={this.state.concentrations} key={i}/>                      
+      return <DropDownInput title={"Concentration"} options={this.state.concentrations} key={i}/>
     })
   return (
     <View>
@@ -133,12 +133,12 @@ class StudentProfile extends Component {
             <View style={styles.headerContentStyle}>
               <Text style={textStyles.headerText}>Elizabeth Pinkham</Text>
               <Text>ep1247@messiah.edu</Text>
-              {state.self == 0 && (
+              {this.state.self == 0 && (
                 <TouchableOpacity style={styles.sendMessage}>
                   <Text style={styles.sendMessageText}>Send Message</Text>
                 </TouchableOpacity>
               )}
-              {state.self == 1 && (
+              {this.state.self == 1 && (
                 <View
                   style={{
                     paddingTop: 5,
@@ -201,7 +201,7 @@ class StudentProfile extends Component {
           <View>
             <DropDownInput title={"Year"} options={this.state.year}/>
             <CardSection>
-            <DropDownInput title={"Major"} options={this.state.majors} key={0}/>  
+            <DropDownInput title={"Major"} options={this.state.majors} key={0}/>
               {curMaj}
               <TouchableOpacity
                 onPress={() => this._addMajor()}
@@ -212,7 +212,7 @@ class StudentProfile extends Component {
               </TouchableOpacity>
             </CardSection>
             <CardSection>
-            <DropDownInput title={"Concentration"} options={this.state.concentrations} key={0}/> 
+            <DropDownInput title={"Concentration"} options={this.state.concentrations} key={0}/>
               {curConcen}
             <TouchableOpacity
                 onPress={() => this._addConcen()}
@@ -223,7 +223,7 @@ class StudentProfile extends Component {
             </CardSection>
 
             <CardSection>
-            <DropDownInput title={"Minor"} options={this.state.minors} key={0}/> 
+            <DropDownInput title={"Minor"} options={this.state.minors} key={0}/>
             {curMinor}
             <TouchableOpacity
                 onPress={() => this._addMinor()}
