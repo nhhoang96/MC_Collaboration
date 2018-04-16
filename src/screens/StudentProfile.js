@@ -16,8 +16,8 @@ class StudentProfile extends Component {
   constructor(props) {
     super(props);
     state = {
-      self: 0,
-      edit: true,
+      self: 1,
+      edit: false,
       count: [],
       studentval: [],
       year: ['Freshman', 'Sophomore', 'Junior', 'Senior'],
@@ -109,15 +109,15 @@ class StudentProfile extends Component {
   }
   render() {
     let curMaj = state.curMaj.map((a, i) => {
-      return <DropDownInput title={"Major"} options={state.majors} key={i}/>                      
+      return <DropDownInput title={"Major"} options={state.majors} key={i}/>
     })
 
     let curMinor = state.curMinor.map((a, i) => {
-      return <DropDownInput title={"Concentration"} options={state.concentrations} key={i}/>                      
+      return <DropDownInput title={"Concentration"} options={state.concentrations} key={i}/>
     })
 
     let curConcen = state.curConcen.map((a, i) => {
-      return <DropDownInput title={"Minor"} options={state.minors} key={i}/>                      
+      return <DropDownInput title={"Minor"} options={state.minors} key={i}/>
     })
   return (
     <View>
@@ -127,12 +127,12 @@ class StudentProfile extends Component {
             <View style={styles.headerContentStyle}>
               <Text style={textStyles.headerText}>Elizabeth Pinkham</Text>
               <Text>ep1247@messiah.edu</Text>
-              {this.state.self == 0 && (
+              {state.self == 0 && (
                 <TouchableOpacity style={styles.sendMessage}>
                   <Text style={styles.sendMessageText}>Send Message</Text>
                 </TouchableOpacity>
               )}
-              {this.state.self == 1 && (
+              {state.self == 1 && (
                 <View
                   style={{
                     paddingTop: 5,
@@ -195,7 +195,7 @@ class StudentProfile extends Component {
           <View>
             <DropDownInput title={"Year"} options={state.year}/>
             <CardSection>
-            <DropDownInput title={"Major"} options={state.majors} key={0}/>  
+            <DropDownInput title={"Major"} options={state.majors} key={0}/>
               {curMaj}
               <TouchableOpacity
                 onPress={() => this._addMajor()}
@@ -206,7 +206,7 @@ class StudentProfile extends Component {
               </TouchableOpacity>
             </CardSection>
             <CardSection>
-            <DropDownInput title={"Concentration"} options={state.concentrations} key={0}/> 
+            <DropDownInput title={"Concentration"} options={state.concentrations} key={0}/>
               {curConcen}
             <TouchableOpacity
                 onPress={() => this._addConcen()}
@@ -217,7 +217,7 @@ class StudentProfile extends Component {
             </CardSection>
 
             <CardSection>
-            <DropDownInput title={"Minor"} options={state.minors} key={0}/> 
+            <DropDownInput title={"Minor"} options={state.minors} key={0}/>
             {curMinor}
             <TouchableOpacity
                 onPress={() => this._addMinor()}
