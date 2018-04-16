@@ -15,37 +15,38 @@ var indexCon = 1;
 class StudentProfile extends Component {
   constructor(props) {
     super(props);
-    state = {
-      self: 1,
-      edit: false,
-      count: [],
-      studentval: [],
-      year: ['Freshman', 'Sophomore', 'Junior', 'Senior'],
-      majors: ['Computer Science', 'Business', 'Accounting'],
-      curMaj:[],
-      curMinor:[],
-      curConcen:[],
-      minors: ['Mathematics', 'English', 'Biology'],
-      concentrations: ['Computer Science', 'Software Development', 'Web Development', 'Business Information System'],
-      interests: [
-        "Artificial Intelligence",
-        "Human Computer Interaction",
-        "Web Development",
-        "Mobile Development"
-      ],
-      currentclasses: [
-        "[CIS 412] System Analysis and Design Applications",
-        "[CIS 418] Artificial Intelligence"
-      ],
-      prevclasses: [
-        "[CIS 411] Systems Analysis and Design Concepts",
-        "[CIS 291] Web Development: Server Side",
-        "[CIS 432] Database Applications"
-      ]
-    };
+    
     // this.userRef = firebase.database().ref('users').child('ep1247');
   };
 
+  state = {
+    self: 1,
+    edit: true,
+    count: [],
+    studentval: [],
+    year: ['Freshman', 'Sophomore', 'Junior', 'Senior'],
+    majors: ['Computer Science', 'Business', 'Accounting'],
+    curMaj:[],
+    curMinor:[],
+    curConcen:[],
+    minors: ['Mathematics', 'English', 'Biology'],
+    concentrations: ['Computer Science', 'Software Development', 'Web Development', 'Business Information System'],
+    interests: [
+      "Artificial Intelligence",
+      "Human Computer Interaction",
+      "Web Development",
+      "Mobile Development"
+    ],
+    currentclasses: [
+      "[CIS 412] System Analysis and Design Applications",
+      "[CIS 418] Artificial Intelligence"
+    ],
+    prevclasses: [
+      "[CIS 411] Systems Analysis and Design Concepts",
+      "[CIS 291] Web Development: Server Side",
+      "[CIS 432] Database Applications"
+    ]
+  };
   // componentDidMount() {
   //   this.listenForTasks(this.userRef);
   //
@@ -86,42 +87,47 @@ class StudentProfile extends Component {
 
   _addMajor() {
     let temp = this.index ++;
-    state.curMaj.push(temp);
+    this.state.curMaj.push(temp);
     this.setState({
-        curMaj: state.curMaj
+        curMaj: this.state.curMaj
     });
   }
 
   _addMinor() {
     let temp = this.indexMin ++;
-    state.curMinor.push(temp);
+    this.state.curMinor.push(temp);
     this.setState({
-        curMinor: state.curMinor
+        curMinor: this.state.curMinor
     });
   }
 
   _addConcen() {
     let temp = this.indexCon ++;
-    state.curConcen.push(temp);
+    this.state.curConcen.push(temp);
     this.setState({
-      curConcen: state.curConcen
+      curConcen: this.state.curConcen
     });
   }
+
+  updateState = () => {
+    this.setState({ edit: false })
+ }
+
   render() {
-    let curMaj = state.curMaj.map((a, i) => {
-      return <DropDownInput title={"Major"} options={state.majors} key={i}/>
+    let curMaj = this.state.curMaj.map((a, i) => {
+      return <DropDownInput title={"Major"} options={this.state.majors} key={i}/>                      
     })
 
-    let curMinor = state.curMinor.map((a, i) => {
-      return <DropDownInput title={"Concentration"} options={state.concentrations} key={i}/>
+    let curMinor = this.state.curMinor.map((a, i) => {
+      return <DropDownInput title={"Minor"} options={this.state.minors} key={i}/>                      
     })
 
-    let curConcen = state.curConcen.map((a, i) => {
-      return <DropDownInput title={"Minor"} options={state.minors} key={i}/>
+    let curConcen = this.state.curConcen.map((a, i) => {
+      return <DropDownInput title={"Concentration"} options={this.state.concentrations} key={i}/>                      
     })
   return (
     <View>
-      {state.edit == false && (
+      {this.state.edit == false && (
         <ScrollView style={styles.containerStyle}>
           <View style={styles.infoContainerStyle}>
             <View style={styles.headerContentStyle}>
@@ -158,11 +164,11 @@ class StudentProfile extends Component {
             <Text>Minor: Business Administration</Text>
           </View>
 
-          <InfoBlock info={state.interests} title="Interests" />
+          <InfoBlock info={this.state.interests} title="Interests" />
 
-          <InfoBlock info={state.currentclasses} title="Current Classes" />
+          <InfoBlock info={this.state.currentclasses} title="Current Classes" />
 
-          <InfoBlock info={state.prevclasses} title="Previous Classes" />
+          <InfoBlock info={this.state.prevclasses} title="Previous Classes" />
 
           <View style={{ width: 100, marginTop: 12 }}>
             <Button onPress={() => this.props.navigation.navigate('chatList')}>Messages</Button>
@@ -170,12 +176,12 @@ class StudentProfile extends Component {
         </ScrollView>
       )}
 
-      {state.edit == true && (
+      {this.state.edit == true && (
         <ScrollView style={styles.containerStyle}>
           <View style={styles.infoContainerStyle}>
             <View style={styles.headerContentStyle}>
 
-              <Text>{ state.studentval.name }</Text>
+              <Text>Temp test</Text>
               <Input label={"Name"} value={ "Test"
                 // userRoot.once('value').then(function(snapshot) {
                 //   this.setState({ studentval: snapshot.val() });
@@ -193,9 +199,9 @@ class StudentProfile extends Component {
           </View>
 
           <View>
-            <DropDownInput title={"Year"} options={state.year}/>
+            <DropDownInput title={"Year"} options={this.state.year}/>
             <CardSection>
-            <DropDownInput title={"Major"} options={state.majors} key={0}/>
+            <DropDownInput title={"Major"} options={this.state.majors} key={0}/>  
               {curMaj}
               <TouchableOpacity
                 onPress={() => this._addMajor()}
@@ -206,7 +212,7 @@ class StudentProfile extends Component {
               </TouchableOpacity>
             </CardSection>
             <CardSection>
-            <DropDownInput title={"Concentration"} options={state.concentrations} key={0}/>
+            <DropDownInput title={"Concentration"} options={this.state.concentrations} key={0}/> 
               {curConcen}
             <TouchableOpacity
                 onPress={() => this._addConcen()}
@@ -217,7 +223,7 @@ class StudentProfile extends Component {
             </CardSection>
 
             <CardSection>
-            <DropDownInput title={"Minor"} options={state.minors} key={0}/>
+            <DropDownInput title={"Minor"} options={this.state.minors} key={0}/> 
             {curMinor}
             <TouchableOpacity
                 onPress={() => this._addMinor()}
@@ -228,16 +234,16 @@ class StudentProfile extends Component {
             </CardSection>
           </View>
 
-          <InfoBlock info={state.interests} title="Interests" />
+          <InfoBlock info={this.state.interests} title="Interests" />
           <Icon name="plus-circle" size={30} color="#253A66" />
 
-          <InfoBlock info={state.currentclasses} title="Current Classes" />
+          <InfoBlock info={this.state.currentclasses} title="Current Classes" />
           <Icon name="plus-circle" size={30} color="#253A66" />
 
-          <InfoBlock info={state.prevclasses} title="Previous Classes" />
+          <InfoBlock info={this.state.prevclasses} title="Previous Classes" />
           <Icon name="plus-circle" size={30} color="#253A66" />
           <View style={{ marginBottom: 30 }}>
-            <Button style={{ marginTop: 10 }} onPress={() => this.setState({ edit: false })}>
+            <Button style={{ marginTop: 10 }} onPress={() => this.setState({edit: false})}>
               <Text>Save Changes</Text>
             </Button>
             <Button style={{ marginTop: 10 }} onPress={() => firebase.auth().signOut()}>
