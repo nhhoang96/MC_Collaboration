@@ -3,6 +3,7 @@ import { View, Text, Image, TextInput, listView, TouchableHighlight, ListView, S
 import { Header } from "../components/common";
 import UserBlock from "../components/UserBlock";
 
+import moment from 'moment';
 import SendBird from 'sendbird';
 
 var sb = null;
@@ -92,6 +93,39 @@ _channelTitle(members) {
   return (_title.length > 15) ? _title.substring(0,11) + '...' : _title;
 }
 
+_onChannelPress(channel) {
+  var _SELF = this;
+  if (_SELF.state.editMode) {
+    Alert.alert(
+      'Group Channel Edit',
+      null,
+      [
+        {text: 'leave', onPress: () => {
+          channel.leave(function(response, error) {
+            if (error) {
+              console.log(error);
+              return;
+            }
+            _SELF._onHideChannel(channel);
+          });
+        }},
+        {text: 'hide', onPress: () => {
+          channel.hide(function(response, error) {
+            if (error) {
+              console.log(error);
+              return;
+            }
+            _SELF._onHideChannel(channel);
+          });
+        }},
+        {text: 'Cancel'}
+      ]
+    )
+  } else {
+    _SELF.props.navigation.navigate('chat', { channel: channel, _onHideChannel: _SELF._onHideChannel, refresh: _SELF._refreshChannelList });
+  }
+}
+
 _refreshChannelList() {
   var _SELF = this;
   var listQuery = sb.GroupChannel.createMyGroupChannelListQuery();
@@ -127,7 +161,7 @@ _refreshChannelList() {
             onEndReached={() => this._getChannelList()}
             dataSource={this.state.dataSource}
             renderRow={(rowData) =>
-              <TouchableHighlight>
+              <TouchableHighlight onPress={() => this._onChannelPress(rowData)}>
                 <View style={styles.listItem}>
                   <View style={styles.listIcon}>
                     <Image key={rowData.coverUrl} source={{uri: rowData.coverUrl.replace('http://', 'https://')}} />

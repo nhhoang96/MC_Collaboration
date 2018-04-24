@@ -15,7 +15,7 @@ var indexCon = 1;
 class StudentProfile extends Component {
   constructor(props) {
     super(props);
-    this.userRef = firebase.database().ref('users/hn1174/');
+    this.userRef = firebase.database().ref('users/ep1247/');
     this.interestRef = firebase.database().ref('interests/');
     this.courseRef = firebase.database().ref('course/');
     this.majorRef = firebase.database().ref('majors/');
@@ -27,7 +27,7 @@ class StudentProfile extends Component {
     self: 1,
     edit: false,
     count: [],
-    studentval: [],
+    currentUser: [],
     year: ['Freshman', 'Sophomore', 'Junior', 'Senior'],
     majors: [],
     curMaj:[],
@@ -64,7 +64,7 @@ json_function = () => {
     this.listenForMajors(this.majorRef);
     this.listenForMinors(this.minorRef);
     this.listenForConcentration(this.concentrationRef);
-    
+
   }
   listenForCourses (courseRef) {
     courseRef.on('value', (dataSnapshot) => {
@@ -88,7 +88,7 @@ json_function = () => {
       this.setState({
         majors: majors
       });
-      
+
     });
   }
 
@@ -101,7 +101,7 @@ json_function = () => {
       this.setState({
         minors: minors
       });
-      
+
     });
   }
 
@@ -114,7 +114,7 @@ json_function = () => {
       this.setState({
         concentrations: concentrations
       });
-      
+
     });
   }
 
@@ -125,7 +125,7 @@ json_function = () => {
       this.setState({
         currentUser: dataSnapshot.val()
       });
-      
+
     });
   }
 
@@ -203,7 +203,7 @@ json_function = () => {
           </View>
 
           <View>
-            <Text style={{ paddingTop: 10 }}>{this.state.currentUser.year}</Text> 
+            <Text style={{ paddingTop: 10 }}>{this.state.currentUser.year}</Text>
             <Text>{"Major: " + this.state.currentUser.major}</Text>
             <Text>{"Concentration: " + this.state.currentUser.concentration}</Text>
             <Text>{"Minor: " + this.state.currentUser.minor}</Text>
@@ -225,7 +225,7 @@ json_function = () => {
         <ScrollView style={styles.containerStyle}>
           <View style={styles.infoContainerStyle}>
             <View style={styles.headerContentStyle}>
-              <Input label={"Name"} value={ 
+              <Input label={"Name"} value={
                 this.state.currentUser.firstname + ' ' + this.state.currentUser.lastname
               } />
               <Input label={"Email"} value={this.state.currentUser.email} />

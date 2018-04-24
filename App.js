@@ -14,6 +14,7 @@ import CheckInfo from './src/screens/CheckInfo';
 import AddInfo from './src/screens/AddInfo';
 import AddClass from './src/screens/AddClass';
 import Messaging from "./src/screens/Messaging";
+import Chat from "./src/screens/Chat";
 
 const MainNavigator = StackNavigator(
   {
@@ -24,7 +25,8 @@ const MainNavigator = StackNavigator(
     checkInfo : { screen : CheckInfo},
     addInfo : { screen : AddInfo},
     addClass : { screen : AddClass},
-    chatList : { screen : Messaging}
+    chatList : { screen : Messaging},
+    chat : { screen: Chat }
   },
   {
     initialRouteName: 'checkInfo',
