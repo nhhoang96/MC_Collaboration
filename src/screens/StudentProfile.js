@@ -9,9 +9,9 @@ import firebase from 'firebase';
 import DropDownInput from "../components/DropDownInput";
 import DisplayImage from "../components/DisplayImage";
 
-var index = 1;
-var indexMin = 1;
-var indexCon = 1;
+var index = 0;
+var indexMin = 0;
+var indexCon = 0;
 
 class StudentProfile extends Component {
   constructor(props) {
@@ -65,7 +65,6 @@ json_function = () => {
     this.listenForMajors(this.majorRef);
     this.listenForMinors(this.minorRef);
     this.listenForConcentration(this.concentrationRef);
-
   }
   listenForCourses (courseRef) {
     courseRef.on('value', (dataSnapshot) => {
@@ -138,9 +137,26 @@ json_function = () => {
     });
   }
 
+  _subtractMajor() {
+    let temp = this.index --;
+    this.state.curMaj.pop();
+    this.setState({
+        curMaj: this.state.curMaj
+    });
+  }
+
+
   _addMinor() {
     let temp = this.indexMin ++;
     this.state.curMinor.push(temp);
+    this.setState({
+        curMinor: this.state.curMinor
+    });
+  }
+
+  _subtractMinor() {
+    let temp = this.indexMinor --;
+    this.state.curMinor.pop();
     this.setState({
         curMinor: this.state.curMinor
     });
@@ -151,6 +167,14 @@ json_function = () => {
     this.state.curConcen.push(temp);
     this.setState({
       curConcen: this.state.curConcen
+    });
+  }
+
+  _subtractConcen() {
+    let temp = this.indexCon --;
+    this.state.curConcen.pop();
+    this.setState({
+        curConcen: this.state.curConcen
     });
   }
 
@@ -200,6 +224,10 @@ json_function = () => {
                   </TouchableOpacity>
                 </View>
               )}
+
+            </View>
+            <View >
+              <DisplayImage />
             </View>
           </View>
 
@@ -210,11 +238,11 @@ json_function = () => {
             <Text>{"Minor: " + this.state.currentUser.minor}</Text>
           </View>
 
-          <InfoBlock info={this.state.interests} title="Interests" />
+          <InfoBlock info={this.state.currentUser.interest + ', ' + this.state.currentUser.interest2} title="Interests" />
 
-          <InfoBlock info={this.state.currentclasses} title="Current Classes" />
+          <InfoBlock info={this.state.currentUser.currentClass + ', ' + this.state.currentUser.currentClass2} title="Current Classes" />
 
-          <InfoBlock info={this.state.prevclasses} title="Previous Classes" />
+          <InfoBlock info={this.state.currentUser.pastClass + ', ' + this.state.currentUser.pastClass2} title="Previous Classes" />
 
           <View style={{ width: 100, marginTop: 12 }}>
             <Button onPress={() => this.props.navigation.navigate('chatList')}>Messages</Button>
@@ -240,18 +268,25 @@ json_function = () => {
           <View>
             <DropDownInput title={"Year"} options={this.state.year}/>
             <CardSection>
-            <DropDownInput title={"Major"} options={this.state.majors} key={0}/>
+              {/* <DropDownInput title={"Major"} options={this.state.majors} key={0}/> */}
               {curMaj}
+              
               <TouchableOpacity
                 onPress={() => this._addMajor()}
                 style={{ alignSelf: "flex-end" }}
               >
-
                 <Icon name="plus-circle" size={30} color="#253A66" />
               </TouchableOpacity>
+
+              <TouchableOpacity
+                onPress={() => this._subtractMajor()}
+                style={{ alignSelf: "flex-end" }}
+              >
+                <Icon name="minus-circle" size={30} color="#253A66" />
+              </TouchableOpacity>
             </CardSection>
+            
             <CardSection>
-            <DropDownInput title={"Concentration"} options={this.state.concentrations} key={0}/>
               {curConcen}
             <TouchableOpacity
                 onPress={() => this._addConcen()}
@@ -259,10 +294,17 @@ json_function = () => {
               >
                 <Icon name="plus-circle" size={30} color="#253A66" />
               </TouchableOpacity>
+
+              <TouchableOpacity
+                onPress={() => this._subtractConcen()}
+                style={{ alignSelf: "flex-end" }}
+              >
+                <Icon name="minus-circle" size={30} color="#253A66" />
+              </TouchableOpacity>
             </CardSection>
 
             <CardSection>
-            <DropDownInput title={"Minor"} options={this.state.minors} key={0}/>
+            {/* <DropDownInput title={"Minor"} options={this.state.minors} key={0}/> */}
             {curMinor}
             <TouchableOpacity
                 onPress={() => this._addMinor()}
@@ -270,16 +312,23 @@ json_function = () => {
               >
                 <Icon name="plus-circle" size={30} color="#253A66" />
               </TouchableOpacity>
+
+              <TouchableOpacity
+                onPress={() => this._subtractMinor()}
+                style={{ alignSelf: "flex-end" }}
+              >
+                <Icon name="minus-circle" size={30} color="#253A66" />
+              </TouchableOpacity>
             </CardSection>
           </View>
 
-          <InfoBlock info={this.state.interests} title="Interests" />
+          <InfoBlock info={this.state.currentUser.interest + ', ' + this.state.currentUser.interest2} title="Interests" />
           <Icon name="plus-circle" size={30} color="#253A66" />
 
-          <InfoBlock info={this.state.currentclasses} title="Current Classes" />
+          <InfoBlock info={this.state.currentUser.currentClass + ', ' + this.state.currentUser.currentClass2} title="Current Classes" />
           <Icon name="plus-circle" size={30} color="#253A66" />
 
-          <InfoBlock info={this.state.prevclasses} title="Previous Classes" />
+          <InfoBlock info={this.state.currentUser.pastClass + ', ' + this.state.currentUser.pastClass2} title="Previous Classes" />
           <Icon name="plus-circle" size={30} color="#253A66" />
           <View style={{ marginBottom: 30 }}>
             <Button style={{ marginTop: 10 }} onPress={() => this.setState({edit: false})}>
