@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { View } from 'react-native';
+import { View, Alert } from 'react-native';
 import { Header, Spinner } from './src/components/common';
 import firebase from "firebase";
+import SendBird from "sendbird";
 
 import { StackNavigator } from 'react-navigation';
 
@@ -36,6 +37,24 @@ class App extends Component {
   state = { loggedIn: null };
 
   componentWillMount() {
+    sb = new SendBird({ appId: '45EE91CC-2EF8-4C8B-999F-743FCC1863CD'});
+    sb.connect('ep1247', function (user, error) {
+      if (error) {
+        console.log(error);
+        return;
+      }
+
+
+      // var userIds = ['bnejmeh'];
+      // sb.GroupChannel.createChannelWithUserIds(userIds, true, null, 'https://www.weact.org/wp-content/uploads/2016/10/Blank-profile.png',null, null, function(createdChannel, error){
+      //   if (error) {
+      //     console.error(error);
+      //     return;
+      //   }
+      // });
+
+  });
+
     firebase.initializeApp({
       apiKey: "AIzaSyDHVz7tPMw815mbZYn_lEV30IPajF8nXRk",
       authDomain: "mc-collaboration.firebaseapp.com",
