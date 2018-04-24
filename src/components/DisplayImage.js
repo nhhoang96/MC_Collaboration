@@ -1,4 +1,4 @@
-import { TouchableOpacity, Text, StyleSheet, Platform, View, PixelRatio, Image } from 'react-native';
+import { TouchableOpacity, Text, StyleSheet, Platform, View, PixelRatio, Image, Alert } from 'react-native';
 import React, { Component } from 'react';
 import ImagePicker from 'react-native-image-picker';
 import firebase from 'firebase';
@@ -24,20 +24,25 @@ class DisplayImage extends Component {
 
   constructor(){
     super();
-    this.checkImage.bind(this);
     this.getImage = this.getImage.bind(this);
-    this.state = {
-      image_uri: null,
-      loggedIn: true,
-    }
+    
     console.ignoredYellowBox = [
       'Setting a timer'
-      ];
-      
+      ];   
 }
+
+  state = {
+    image_uri: null,
+    url: '',
+    loggedIn: true,
+  }
+
+  componentDidMount() {
+    this.checkImage();
+  }
     checkImage() {
-      const imageRef = firebase.storage().ref('profile_images');
-      imageRef.child("ep1247").getDownloadURL().then(function(url) {
+      const imageRef = firebase.storage().ref('profile_images/ep1247');
+      imageRef.getDownloadURL().then((url) => {
         // `url` is the download URL for 'images/stars.jpg'
       
         // This can be downloaded directly:
@@ -48,9 +53,12 @@ class DisplayImage extends Component {
         };
         xhr.open('GET', url);
         xhr.send();
-        this.setState({image_uri: url});
-        return (<Text>image_uri</Text>);
-      
+        this.setState({url: url});
+        Alert.alert(
+          "Image test", this.state.url
+        );
+      }, (url) => {
+        
       });
     }
     // Prepare Blob support
@@ -59,7 +67,7 @@ class DisplayImage extends Component {
       return new Promise((resolve, reject) => {
         const uploadUri = Platform.OS === 'ios'? uri.replace('file://', '') : uri
         let uploadBlob = null
-        const imageRef = firebase.storage().ref('profile_images').child('ep1247.png')
+        const imageRef = firebase.storage().ref('profile_images').child('ep1247')
         fs.readFile(uploadUri, 'base64')
           .then((data) => {
             return Blob.build(data, { type: `${mime};BASE64` })
@@ -94,17 +102,22 @@ class DisplayImage extends Component {
         }
         else if (response.customButton) {
           console.log('User tapped custom button: ', response.customButton);
-        }
+        } 
         else {
-          // let source = { uri: response.uri };
-          // this.setState({image_uri: response.uri})
+          let source = { uri: response.uri };
+          if (image_uri === null){
+            this.uploadImage(response.uri)
+            .then(url => { Alert.alert('Your photo has been updated', url); })
+            .catch(error => console.log(error))
+          } else {
+            this.setState({image_uri: response.uri})
+          }
+
+          
   
           // You can also display the image using data:
           // let image_uri = { uri: 'data:image/jpeg;base64,' + response.data };
-  
-          this.uploadImage(response.uri)
-            .then(url => { alert('Your photo has been updated'); this.setState({image_uri: url}) })
-            .catch(error => console.log(error))
+          
   
         }
       });
@@ -118,7 +131,7 @@ render() {
           <View style={[styles.profile, styles.profileContainer, {marginBottom: 20, marginLeft: 10}]}>
           { this.state.image_uri === null ? <Text>Select Photo</Text> :
             <Image style={styles.profile} 
-              source={{uri:this.state.image_uri}} 
+              source={{uri:this.state.image_uri}}
             />
           }
           </View>

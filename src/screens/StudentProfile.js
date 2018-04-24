@@ -25,7 +25,7 @@ class StudentProfile extends Component {
 
   state = {
     self: 1,
-    edit: false,
+    edit: true,
     currentUser : [],
     year: ['Freshman', 'Sophomore', 'Junior', 'Senior'],
     majors: [],
