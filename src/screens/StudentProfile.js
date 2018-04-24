@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, ScrollView, Image, TouchableOpacity } from "react-native";
+import { View, Text, ScrollView, Image, TouchableOpacity, Alert } from "react-native";
 import { Button, Input, CardSection } from "../components/common";
 import Icon from "react-native-vector-icons/dist/FontAwesome";
 import InfoBlock from "../components/InfoBlock";
@@ -15,22 +15,25 @@ var indexCon = 1;
 class StudentProfile extends Component {
   constructor(props) {
     super(props);
-
-    // this.userRef = firebase.database().ref('users').child('ep1247');
+    this.userRef = firebase.database().ref('users/hn1174/');
+    this.interestRef = firebase.database().ref('interests/');
+    this.courseRef = firebase.database().ref('course/');
+    this.majorRef = firebase.database().ref('majors/');
+    this.minorRef = firebase.database().ref('minors/');
+    this.concentrationRef = firebase.database().ref('concentrations/');
   };
 
   state = {
     self: 1,
-    edit: true,
-    count: [],
-    studentval: [],
+    edit: false,
+    currentUser : [],
     year: ['Freshman', 'Sophomore', 'Junior', 'Senior'],
-    majors: ['Computer Science', 'Business', 'Accounting'],
+    majors: [],
     curMaj:[],
     curMinor:[],
     curConcen:[],
-    minors: ['Mathematics', 'English', 'Biology'],
-    concentrations: ['Computer Science', 'Software Development', 'Web Development', 'Business Information System'],
+    minors: [],
+    concentrations: [],
     interests: [
       "Artificial Intelligence",
       "Human Computer Interaction",
@@ -47,43 +50,83 @@ class StudentProfile extends Component {
       "[CIS 432] Database Applications"
     ]
   };
-  // componentDidMount() {
-  //   this.listenForTasks(this.userRef);
-  //
-  // }
 
-  // listenForTasks(userRef) {
-  //   userRef.on('value', (dataSnapshot) => {
-  //     var studentval =[];
-  //     dataSnapshot.forEach((child) => {
-  //       studentval.push({
-  //         name: child.val().name,
-  //         _key: child.key
-  //       });
-  //   });
-  //   this.setState({
-  //     studentval: studentval
-  //   });
-  // });
+json_function = () => {
+    var json_fragment = this.userRef.concentration;
+    Alert.alert(
+      'Json_text', json_fragment
+    );
+}
 
-//   updateUser = (snapshot) => {
-//     //this.setState({ studentval: snapshot.child('concentration').val() });
-//     return snapshot.child('concentration').val();
-//  }
-//   async get_firebase_list(){
-//     return firebase.database().ref('users').once('value').then(function(snapshot) {
-//         var items = [];
-//         snapshot.forEach(function(childSnapshot) {
-//           var childKey = childSnapshot.key;
-//           var childData = childSnapshot.val();
-//           items.push(childData);
-//           <Text>childData</Text>
-//         });
-//         console.log("items_load: " + items);
+  componentDidMount() {
+    this.listenForCurrentUserValues(this.userRef);
+    this.listenForMajors(this.majorRef);
+    this.listenForMinors(this.minorRef);
+    this.listenForConcentration(this.concentrationRef);
+    
+  }
+  listenForCourses (courseRef) {
+    courseRef.on('value', (dataSnapshot) => {
+      var curCourse = [];
+      dataSnapshot.forEach((child) => {
+            curCourse.push(child.val());
+      });
+      this.setState({
 
-//         return items;
-//     });
-  // };
+      });
+
+    });
+  }
+
+  listenForMajors (majorRef) {
+    majorRef.on('value', (dataSnapshot) => {
+      var majors = [];
+      dataSnapshot.forEach((child) => {
+            majors.push(child.val());
+      });
+      this.setState({
+        majors: majors
+      });
+      
+    });
+  }
+
+  listenForMinors (minorRef) {
+    minorRef.on('value', (dataSnapshot) => {
+      var minors = [];
+      dataSnapshot.forEach((child) => {
+            minors.push(child.val());
+      });
+      this.setState({
+        minors: minors
+      });
+      
+    });
+  }
+
+  listenForConcentration (concentrationRef) {
+    concentrationRef.on('value', (dataSnapshot) => {
+      var concentrations = [];
+      dataSnapshot.forEach((child) => {
+          concentrations.push(child.val());
+      });
+      this.setState({
+        concentrations: concentrations
+      });
+      
+    });
+  }
+
+
+  listenForCurrentUserValues(userRef) {
+    userRef.on('value', (dataSnapshot) => {
+      var currentUser =[];
+      this.setState({
+        currentUser: dataSnapshot.val()
+      });
+      
+    });
+  }
 
   _addMajor() {
     let temp = this.index ++;
@@ -116,23 +159,24 @@ class StudentProfile extends Component {
   render() {
     let curMaj = this.state.curMaj.map((a, i) => {
       return <DropDownInput title={"Major"} options={this.state.majors} key={i}/>
-    })
+    });
 
     let curMinor = this.state.curMinor.map((a, i) => {
       return <DropDownInput title={"Minor"} options={this.state.minors} key={i}/>
-    })
+    });
 
     let curConcen = this.state.curConcen.map((a, i) => {
       return <DropDownInput title={"Concentration"} options={this.state.concentrations} key={i}/>
-    })
+    });
+
   return (
     <View>
       {this.state.edit == false && (
         <ScrollView style={styles.containerStyle}>
           <View style={styles.infoContainerStyle}>
             <View style={styles.headerContentStyle}>
-              <Text style={textStyles.headerText}>Elizabeth Pinkham</Text>
-              <Text>ep1247@messiah.edu</Text>
+              <Text style={textStyles.headerText}>{this.state.currentUser.firstname + ' ' + this.state.currentUser.lastname}</Text>
+              <Text>{this.state.currentUser.email}</Text>
               {this.state.self == 0 && (
                 <TouchableOpacity style={styles.sendMessage}>
                   <Text style={styles.sendMessageText}>Send Message</Text>
@@ -158,10 +202,10 @@ class StudentProfile extends Component {
           </View>
 
           <View>
-            <Text style={{ paddingTop: 10 }}>Senior</Text>
-            <Text>Computer and Information Science</Text>
-            <Text>Concentration: Software Development</Text>
-            <Text>Minor: Business Administration</Text>
+            <Text style={{ paddingTop: 10 }}>{this.state.currentUser.year}</Text> 
+            <Text>{"Major: " + this.state.currentUser.major}</Text>
+            <Text>{"Concentration: " + this.state.currentUser.concentration}</Text>
+            <Text>{"Minor: " + this.state.currentUser.minor}</Text>
           </View>
 
           <InfoBlock info={this.state.interests} title="Interests" />
@@ -180,17 +224,10 @@ class StudentProfile extends Component {
         <ScrollView style={styles.containerStyle}>
           <View style={styles.infoContainerStyle}>
             <View style={styles.headerContentStyle}>
-
-              <Text>Temp test</Text>
-              <Input label={"Name"} value={ "Test"
-                // userRoot.once('value').then(function(snapshot) {
-                //   this.setState({ studentval: snapshot.val() });
-                //   return String(snapshot.child('name').val());
-                // })
-                //state.studentval
+              <Input label={"Name"} value={ 
+                this.state.currentUser.firstname + ' ' + this.state.currentUser.lastname
               } />
-              <Input label={"Email"} value={"ep1247@messiah.edu"} />
-              {/* <View>{username}</View> */}
+              <Input label={"Email"} value={this.state.currentUser.email} />
 
             </View>
             <View >
