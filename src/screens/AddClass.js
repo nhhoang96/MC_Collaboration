@@ -1,14 +1,15 @@
 import React, { Component } from "react";
 import { View, Text, TextInput, ScrollView, TouchableOpacity } from 'react-native';
-import { CardSection, Input, Button } from '../components/common';
+import { CardSection, Input, Button, Footer } from '../components/common';
 import textStyles from "../components/styles/text";
+import formattingStyles from '../components/styles/formatting';
 import Icon from "react-native-vector-icons/dist/FontAwesome";
 import AddInput from "../components/AddInput";
 
 class AddClass extends Component {
   render() {
     return (
-      <View>
+      <View style={formattingStyles.container}>
         <ScrollView style={styles.infoContainerStyle}>
           <View>
             <Text style={textStyles.headerText}>Welcome, Elizabeth!</Text>
@@ -54,18 +55,19 @@ class AddClass extends Component {
             </TouchableOpacity>
           </CardSection>
 
-
-          <View style={{ paddingTop: 10, flexDirection: 'row', justifyContent: 'space-between'}}>
-          <TouchableOpacity onPress={() => this.props.navigation.navigate('addInfo')}>
-            <Text style={textStyles.label}>Back</Text>
-            <Icon name="arrow-circle-left" size={30} style={{ color: "#253A66" }}/>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => this.props.navigation.navigate('student')}>
-            <Text style={textStyles.label}>Next</Text>
-            <Icon name="arrow-circle-right" size={30} style={{ color: "#253A66" }}/>
-          </TouchableOpacity>
-          </View>
         </ScrollView>
+        <CardSection>
+          <View style={{ paddingTop: 10, flexDirection: 'row', justifyContent: 'space-between'}}>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('addInfo')}>
+              <Text style={textStyles.label}>Back</Text>
+              <Icon name="arrow-circle-left" size={30} style={{ color: "#253A66" }}/>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('student')}>
+              <Text style={textStyles.label}>Next</Text>
+              <Icon name="arrow-circle-right" size={30} style={{ color: "#253A66" }}/>
+            </TouchableOpacity>
+          </View>
+        </CardSection>
       </View>
     );
   }

@@ -164,7 +164,7 @@ _refreshChannelList() {
               <TouchableHighlight onPress={() => this._onChannelPress(rowData)}>
                 <View style={styles.listItem}>
                   <View style={styles.listIcon}>
-                    <Image key={rowData.coverUrl} source={{uri: rowData.coverUrl.replace('http://', 'https://')}} />
+                    <Image key={rowData.coverUrl} source={{uri: 'https:upload.wikimedia.org/wikipedia/commons/0/08/Omri_Levy_Picture.jpg'}} />
                   </View>
                   <View style={styles.listInfo}>
                     <Text>{this._channelTitle(rowData.members)}</Text>

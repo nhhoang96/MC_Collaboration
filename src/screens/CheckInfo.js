@@ -9,6 +9,7 @@ import {
   ProgressBar
 } from "react-native";
 import textStyles from "../components/styles/text";
+import formattingStyles from '../components/styles/formatting';
 import { CardSection, Input, Button } from "../components/common";
 import Icon from "react-native-vector-icons/dist/FontAwesome";
 import AddInput from "../components/AddInput";
@@ -25,7 +26,7 @@ class CheckInfo extends Component {
   };
   render() {
     return (
-      <View>
+      <View style={formattingStyles.container}>
         <ScrollView style={styles.infoContainerStyle}>
           <View style={styles.headerContentStyle}>
             <Text style={textStyles.headerText}>Welcome, Elizabeth!</Text>
@@ -62,13 +63,15 @@ class CheckInfo extends Component {
               </TouchableOpacity>
             </CardSection>
           </View>
+        </ScrollView>
+        <CardSection>
           <View style={{ paddingTop: 10, flexDirection: 'row', justifyContent: 'flex-end'}}>
             <TouchableOpacity onPress={() => this.props.navigation.navigate('addInfo')}>
               <Text style={textStyles.label}>Next</Text>
               <Icon name="arrow-circle-right" size={30} style={{ color: "#253A66" }}/>
             </TouchableOpacity>
           </View>
-        </ScrollView>
+        </CardSection>
       </View>
     );
   };

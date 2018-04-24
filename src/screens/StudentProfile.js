@@ -4,6 +4,7 @@ import { Button, Input, CardSection } from "../components/common";
 import Icon from "react-native-vector-icons/dist/FontAwesome";
 import InfoBlock from "../components/InfoBlock";
 import textStyles from "../components/styles/text";
+import formattingStyles from '../components/styles/formatting'
 import firebase from 'firebase';
 import DropDownInput from "../components/DropDownInput";
 import DisplayImage from "../components/DisplayImage";

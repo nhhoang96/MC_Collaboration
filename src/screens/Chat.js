@@ -187,7 +187,7 @@ render() {
                     <TouchableHighlight underlayColor='#f7f8fc' onPress={() => this._onUserPress(rowData.sender)}>
                       <View style={[styles.listItem, {transform: [{ scaleY: -1 }]}]}>
                         <View style={styles.listIcon}>
-                          <Image style={styles.senderIcon} key={rowData.sender.url} source={{uri: rowData.sender.profileUrl.replace('http://', 'https://')}} />
+                          <Image style={styles.senderIcon} key={rowData.sender.url} source={{uri: 'https:upload.wikimedia.org/wikipedia/commons/0/08/Omri_Levy_Picture.jpg'}} />
                         </View>
                         <View style={styles.senderContainer}>
                           <Text style={[styles.senderText, {color: '#3e3e55'}]}>{rowData.sender.nickname}</Text>
@@ -201,11 +201,11 @@ render() {
                     <TouchableHighlight underlayColor='#f7f8fc' onPress={() => this._onUserPress(rowData.sender)}>
                       <View style={[styles.listItem, {transform: [{ scaleY: -1 }]}]}>
                         <View style={styles.listIcon}>
-                          <Image style={styles.senderIcon} key={rowData.sender.url} source={{uri: rowData.sender.profileUrl.replace('http://', 'https://')}} />
+                          <Image style={styles.senderIcon} key={rowData.sender.url} source={{uri: 'https://upload.wikimedia.org/wikipedia/commons/0/08/Omri_Levy_Picture.jpg'}} />
                         </View>
                         <View style={styles.senderContainer}>
                           <Text style={[styles.senderText, {color: '#3e3e55'}]}>{rowData.sender.nickname}</Text>
-                          <Image style={{width: 100, height: 70}} key={rowData.url} source={{uri: rowData.url.replace('http://', 'https://')}} />
+                          <Image style={{width: 100, height: 70}} key={rowData.url} source={{uri: 'https://upload.wikimedia.org/wikipedia/commons/0/08/Omri_Levy_Picture.jpg'}} />
                         </View>
                       </View>
                     </TouchableHighlight>
