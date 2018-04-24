@@ -6,9 +6,6 @@ import RNFetchBlob from 'react-native-fetch-blob';
 
 var options = {
   title: 'Select your profile picture',
-  // customButtons: [
-  //   {name: 'fb', title: 'Choose Photo from Facebook'},
-  // ],
   storageOptions: {
     skipBackup: true,
     path: 'images'
@@ -33,41 +30,26 @@ class DisplayImage extends Component {
 
   state = {
     image_uri: null,
-    url: '',
     loggedIn: true,
+
   }
 
   componentDidMount() {
-    this.checkImage();
+    this.preloadImage();
   }
-    checkImage() {
-      const imageRef = firebase.storage().ref('profile_images/ep1247');
-      imageRef.getDownloadURL().then((url) => {
-        // `url` is the download URL for 'images/stars.jpg'
-      
-        // This can be downloaded directly:
-        var xhr = new XMLHttpRequest();
-        xhr.responseType = 'blob';
-        xhr.onload = function(event) {
-          var blob = xhr.response;
-        };
-        xhr.open('GET', url);
-        xhr.send();
-        this.setState({url: url});
-        Alert.alert(
-          "Image test", this.state.url
-        );
-      }, (url) => {
-        
-      });
-    }
+  preloadImage () {
+    firebase.storage().ref('profile_images/ep1247.png').getDownloadURL().then((url) => {
+      this.setState({image_uri: url});
+    })
+  }
+
     // Prepare Blob support
   
     uploadImage(uri, mime= 'application/octet-stream') {
       return new Promise((resolve, reject) => {
         const uploadUri = Platform.OS === 'ios'? uri.replace('file://', '') : uri
         let uploadBlob = null
-        const imageRef = firebase.storage().ref('profile_images').child('ep1247')
+        const imageRef = firebase.storage().ref('profile_images').child('ep1247.png')
         fs.readFile(uploadUri, 'base64')
           .then((data) => {
             return Blob.build(data, { type: `${mime};BASE64` })
@@ -105,37 +87,30 @@ class DisplayImage extends Component {
         } 
         else {
           let source = { uri: response.uri };
-          if (image_uri === null){
-            this.uploadImage(response.uri)
-            .then(url => { Alert.alert('Your photo has been updated', url); })
-            .catch(error => console.log(error))
-          } else {
-            this.setState({image_uri: response.uri})
-          }
-
-          
-  
+          this.setState({image_uri: response.uri})
           // You can also display the image using data:
-          // let image_uri = { uri: 'data:image/jpeg;base64,' + response.data };
-          
-  
+          //let image_uri = { uri: 'data:image/jpeg;base64,' + response.data };
+          this.uploadImage(response.uri)
+            .then(url => { Alert.alert('Your photo has been updated', url); })
+           
         }
       });
-  
   }
-
+  
 render() {
     return (
       <View style={styles.container}>
+
         <TouchableOpacity onPress={this.getImage}>
           <View style={[styles.profile, styles.profileContainer, {marginBottom: 20, marginLeft: 10}]}>
-          { this.state.image_uri === null ? <Text>Select Photo</Text> :
+          { this.state.image_uri === null ? <Text>Select Photo</Text> : 
             <Image style={styles.profile} 
-              source={{uri:this.state.image_uri}}
+            source={{ uri: this.state.image_uri }}
             />
           }
           </View>
         </TouchableOpacity>
+        
       </View>
     );
 }

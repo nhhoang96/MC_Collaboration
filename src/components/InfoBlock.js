@@ -6,7 +6,7 @@ const InfoBlock = ({ info, title }) => {
   return (
     <View style={styles.container}>
       <Text style={textStyles.subHeaderText}>{title}</Text>
-      <Text>{info.map(e => e + ", ")}</Text>
+      <Text>{info}</Text>
     </View>
   );
 };
