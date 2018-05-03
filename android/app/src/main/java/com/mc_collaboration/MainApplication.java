@@ -31,9 +31,6 @@ public class MainApplication extends Application implements ReactApplication {
           new MainReactPackage(),
             new VectorIconsPackage(),
             new ImagePickerPackage(),
-            new RNFetchBlobPackage(),
-            new VectorIconsPackage(),
-            new ImagePickerPackage(),
             new RNFetchBlobPackage()
       );
     }
