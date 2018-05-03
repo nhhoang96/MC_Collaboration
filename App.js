@@ -78,9 +78,9 @@ class App extends Component {
   renderContent() {
     switch (this.state.loggedIn) {
       case true:
-        return <StudentProfile/>;
+        return <CheckInfo/>;
       case false:
-        return <StudentProfile/>;
+        return <CheckInfo/>;
       default:
         return <Spinner size="large" />;
         // return <CheckInfo/>;

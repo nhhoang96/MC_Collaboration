@@ -1,4 +1,3 @@
-
 // Import libraries for making a component
 
 import React from 'react';
