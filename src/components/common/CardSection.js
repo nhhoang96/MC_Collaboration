@@ -16,7 +16,7 @@ const styles = {
     backgroundColor: '#fff',
     justifyContent: 'flex-start',
     // row (horizontal organization), column (vertical org)
-    flexDirection: 'column',
+    flexDirection: 'row',
     borderColor: '#ddd',
     position: 'relative'
   }

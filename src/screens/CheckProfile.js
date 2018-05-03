@@ -4,12 +4,14 @@ import { Pages } from "react-native-pages";
 import formattingStyles from '../components/styles/formatting';
 import CheckInfo from "./CheckInfo";
 import AddInfo from "./AddInfo";
-
+import firebase from 'firebase'
 class CheckProfile extends Component {
   constructor(props) {
     super(props);
   }
-
+  componentDidMount(){
+    
+  }
   render() {
     return (
       <Pages indicatorColor={"rgb(100, 100, 100)"}>

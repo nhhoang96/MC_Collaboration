@@ -9,7 +9,6 @@ const Card = (props) => {
   );
 };
 
-
 const styles = {
   containerStyle: {
       borderWidth: 1,

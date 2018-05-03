@@ -6,7 +6,8 @@ import {
   ScrollView,
   Picker,
   TouchableOpacity,
-  ProgressBar
+  ProgressBar,
+  Alert
 } from "react-native";
 import textStyles from "../components/styles/text";
 import formattingStyles from '../components/styles/formatting';
@@ -14,22 +15,65 @@ import { CardSection, Input, Button } from "../components/common";
 import Icon from "react-native-vector-icons/dist/FontAwesome";
 import AddInput from "../components/AddInput";
 import { StackNavigator } from "react-navigation";
+import firebase from 'firebase';
 
 class CheckInfo extends Component {
   constructor(props) {
     super(props);
+    console.ignoredYellowBox = [
+      'Setting a timer'
+      ];
+    var userID = this.props.navigation.state.params.ID;
+    this.userRef = firebase.database().ref('users/' + userID);
+    
   }
 
   state = {
     majors: [<AddInput text={"Major"} labels={["1", "2", "3"]} key={0} />],
-    classes: ["First Year", "Sophomore", "Junoir", "Senior"]
+    classes: ["First Year", "Sophomore", "Junoir", "Senior"],
+    currentUser: [],
+    updatedFirstName : "",
+    updatedLastName: "",
+    updatedYear : "",
+    updatedPhone : "",
+
+    
   };
+
+  listenForCurrentUserValues(userRef) {
+    userRef.on('value', (dataSnapshot) => {
+      var currentUser =[];
+      this.setState({
+        currentUser: dataSnapshot.val()
+      });
+
+    });
+  };
+
+  onButtonPress() {
+    
+    userRef.update({
+        firstname: this.state.updatedFirstName,
+        lastname: this.state.updatedLastName,
+        year: this.state.updatedYear,
+        phonenumber: this.state.updatedPhone,
+    });
+    this.props.navigation.navigate('addInfo');
+    // Alert.alert('Button pressed',this.state.updatedYear );
+  };
+
+  
+
+  componentDidMount() {
+    this.listenForCurrentUserValues(this.userRef);
+  };
+
   render() {
     return (
       <View style={formattingStyles.container}>
         <ScrollView style={styles.infoContainerStyle}>
           <View style={styles.headerContentStyle}>
-            <Text style={textStyles.headerText}>Welcome, Elizabeth!</Text>
+            <Text style={textStyles.headerText}>{"Welcome, " + this.state.currentUser.firstname + "!"}</Text>
             <Text>
               To get started, review your information and add additional
               information to help connect with others
@@ -37,36 +81,39 @@ class CheckInfo extends Component {
           </View>
           <View>
             <CardSection>
-              <Input label="Name" placeholder="Elizabeth Pinkham" />
+              <Input 
+                label="Name" 
+                placeholder={this.state.currentUser.firstname + ' ' + this.state.currentUser.lastname} 
+                onChangeText = {(value) => {
+                  this.setState({updatedFirstName: value.split(' ')[0]});
+                  this.setState({updatedLastName: value.split(' ')[1]})}}
+                />
+              
             </CardSection>
             <CardSection>
-              <AddInput text="Class" labels={this.state.classes} />
+              <Input 
+                label="Year" 
+                placeholder={this.state.currentUser.year} 
+                onChangeText = {(value) => {this.setState({updatedYear: value})}}
+                />
             </CardSection>
             <CardSection>
-              <Input label="Phone Number" placeholder="(123) 456-7890" />
+              <Input 
+                label="Phone Number" 
+                placeholder={this.state.currentUser.phonenumber} 
+                onChangeText = {(value) => {this.setState({updatedPhone: value})}}
+                />
             </CardSection>
-            <CardSection>
-              {this.state.majors}
-              <TouchableOpacity
-                style={{ alignSelf: "flex-end" }}
-                onPress={() => {
-                  this.state.majors.push(
-                    <AddInput
-                      text="Major(s)"
-                      labels={["1", "2", "3"]}
-                      key={this.state.majors.length}
-                    />
-                  );
-                }}
-              >
-                <Icon name="plus-circle" size={30} color="#253A66" />
-              </TouchableOpacity>
-            </CardSection>
+            <Button onPress={this.onButtonPress.bind(this)} >Submit</Button>
           </View>
         </ScrollView>
         <CardSection>
           <View style={{ paddingTop: 10, flexDirection: 'row', justifyContent: 'flex-end'}}>
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('addInfo')}>
+            <TouchableOpacity onPress={() => {
+                
+                this.props.navigation.navigate('addInfo');
+
+                }}>
               <Text style={textStyles.label}>Next</Text>
               <Icon name="arrow-circle-right" size={30} style={{ color: "#253A66" }}/>
             </TouchableOpacity>
