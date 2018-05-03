@@ -29,9 +29,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "MC_Collaboration.app"
-               BlueprintName = "MC_Collaboration"
-               ReferencedContainer = "container:MC_Collaboration.xcodeproj">
+               BuildableName = "mc_collaboration.app"
+               BlueprintName = "mc_collaboration"
+               ReferencedContainer = "container:mc_collaboration.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -43,9 +43,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "MC_CollaborationTests.xctest"
-               BlueprintName = "MC_CollaborationTests"
-               ReferencedContainer = "container:MC_Collaboration.xcodeproj">
+               BuildableName = "mc_collaborationTests.xctest"
+               BlueprintName = "mc_collaborationTests"
+               ReferencedContainer = "container:mc_collaboration.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -61,9 +61,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "MC_CollaborationTests.xctest"
-               BlueprintName = "MC_CollaborationTests"
-               ReferencedContainer = "container:MC_Collaboration.xcodeproj">
+               BuildableName = "mc_collaborationTests.xctest"
+               BlueprintName = "mc_collaborationTests"
+               ReferencedContainer = "container:mc_collaboration.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -71,9 +71,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "MC_Collaboration.app"
-            BlueprintName = "MC_Collaboration"
-            ReferencedContainer = "container:MC_Collaboration.xcodeproj">
+            BuildableName = "mc_collaboration.app"
+            BlueprintName = "mc_collaboration"
+            ReferencedContainer = "container:mc_collaboration.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -94,9 +94,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "MC_Collaboration.app"
-            BlueprintName = "MC_Collaboration"
-            ReferencedContainer = "container:MC_Collaboration.xcodeproj">
+            BuildableName = "mc_collaboration.app"
+            BlueprintName = "mc_collaboration"
+            ReferencedContainer = "container:mc_collaboration.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -113,9 +113,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "MC_Collaboration.app"
-            BlueprintName = "MC_Collaboration"
-            ReferencedContainer = "container:MC_Collaboration.xcodeproj">
+            BuildableName = "mc_collaboration.app"
+            BlueprintName = "mc_collaboration"
+            ReferencedContainer = "container:mc_collaboration.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
