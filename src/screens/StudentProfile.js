@@ -43,7 +43,7 @@ class StudentProfile extends Component {
       "Human Computer Interaction",
       "Web Development",
       "Mobile Development"
-    ],this
+    ],
     currentclasses: [
       "[CIS 412] System Analysis and Design Applications",
       "[CIS 418] Artificial Intelligence"
