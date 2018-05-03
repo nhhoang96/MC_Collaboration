@@ -72,11 +72,7 @@ class LoginForm extends Component {
     return (
      
       <Card>
-<<<<<<< HEAD
-        <CardSection style={{flex: 1}}>
-=======
         <CardSectionRow>
->>>>>>> c75eabd68374c5c2d5268316bbf5f06bd20fe7f7
           <Input
             placeholder="ab1234"
             label="User ID"
@@ -85,11 +81,7 @@ class LoginForm extends Component {
           />
         </CardSectionRow>
 
-<<<<<<< HEAD
-        <CardSection style={{flex: 1}}>
-=======
-        <CardSectionRow>
->>>>>>> c75eabd68374c5c2d5268316bbf5f06bd20fe7f7
+        <CardSectionRow style={{flex: 1}}>
           <Input
             secureTextEntry
             placeholder="password"
@@ -100,30 +92,8 @@ class LoginForm extends Component {
         </CardSectionRow>
 
         <Text style={styles.errorTextStyle}>{this.state.error}</Text>
-<<<<<<< HEAD
-        <CardSection>{this.renderButton()}</CardSection>
-        {/* <CardSection>
-              {this.state.majors}
-              <TouchableOpacity
-                style={{ alignSelf: "flex-end" }}
-                onPress={() => {
-                  this.state.majors.push(
-                    <AddInput
-                      text="Major(s)"
-                      labels={["1", "2", "3"]}
-                      key={this.state.majors.length}
-                    />
-                  );
-                }}
-              >
-                <Icon name="plus-circle" size={30} color="#253A66" />
-              </TouchableOpacity>
-              </CardSection> */}
-
-=======
 
         <CardSectionRow>{this.renderButton()}</CardSectionRow>
->>>>>>> c75eabd68374c5c2d5268316bbf5f06bd20fe7f7
       </Card>
     );
   }
