@@ -9,9 +9,9 @@ import firebase from 'firebase';
 import DropDownInput from "../components/DropDownInput";
 import DisplayImage from "../components/DisplayImage";
 
-var index = 0;
-var indexMin = 0;
-var indexCon = 0;
+var index = 1;
+var indexMin = 1;
+var indexCon = 1;
 
 class StudentProfile extends Component {
   constructor(props) {
@@ -135,6 +135,7 @@ json_function = () => {
     this.setState({
         curMaj: this.state.curMaj
     });
+
   }
 
   _subtractMajor() {
@@ -268,11 +269,13 @@ json_function = () => {
           <View>
             <DropDownInput title={"Year"} options={this.state.year}/>
             <CardSection>
-              {/* <DropDownInput title={"Major"} options={this.state.majors} key={0}/> */}
+              <DropDownInput title={"Major"} options={this.state.majors} key={0}/>
               {curMaj}
-              
               <TouchableOpacity
-                onPress={() => this._addMajor()}
+                onPress={() => {
+                  this._addMajor()
+                  {curMaj}
+                }}
                 style={{ alignSelf: "flex-end" }}
               >
                 <Icon name="plus-circle" size={30} color="#253A66" />
@@ -287,10 +290,15 @@ json_function = () => {
             </CardSection>
             
             <CardSection>
+              <DropDownInput title={"Concentration"} options={this.state.concentrations} key={0}/>
               {curConcen}
             <TouchableOpacity
-                onPress={() => this._addConcen()}
-                style={{ alignSelf: "flex-end" }}
+                onPress={() => {
+                  this._addConcen()
+                  {curConcen}
+                }}
+                style={{ alignSelf: "flex-end" 
+              }}
               >
                 <Icon name="plus-circle" size={30} color="#253A66" />
               </TouchableOpacity>
@@ -304,10 +312,13 @@ json_function = () => {
             </CardSection>
 
             <CardSection>
-            {/* <DropDownInput title={"Minor"} options={this.state.minors} key={0}/> */}
+            <DropDownInput title={"Minor"} options={this.state.minors} key={0}/>
             {curMinor}
             <TouchableOpacity
-                onPress={() => this._addMinor()}
+                onPress={() => {
+                  this._addMinor()
+                  {curMinor}
+                }}
                 style={{ alignSelf: "flex-end" }}
               >
                 <Icon name="plus-circle" size={30} color="#253A66" />

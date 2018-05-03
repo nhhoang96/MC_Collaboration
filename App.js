@@ -29,7 +29,7 @@ const MainNavigator = StackNavigator(
     chat : { screen: Chat }
   },
   {
-    initialRouteName: 'checkInfo',
+    initialRouteName: 'login',
     headerMode: 'none',
   }
 )

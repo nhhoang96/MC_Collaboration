@@ -3,6 +3,7 @@ import { Text, View } from "react-native";
 import firebase from "firebase";
 import { Button, Card, CardSection, Input, Spinner, Header } from "./components/common";
 import StudentProfile from "./screens/StudentProfile";
+import { StackNavigator } from "react-navigation";
 
 class LoginForm extends Component {
   state = { userID: "", password: "", error: "", loading: false };
@@ -35,6 +36,7 @@ class LoginForm extends Component {
       loading: false,
       error: ""
     });
+    this.props.navigation.navigate('checkInfo');
   }
 
 
@@ -48,6 +50,7 @@ class LoginForm extends Component {
 
   render() {
     return (
+      <View>
       <Card>
         <CardSection>
           <Input
@@ -72,6 +75,7 @@ class LoginForm extends Component {
 
         <CardSection>{this.renderButton()}</CardSection>
       </Card>
+      </View>
     );
   }
 }
