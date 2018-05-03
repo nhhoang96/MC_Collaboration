@@ -40,7 +40,7 @@ class App extends Component {
 
   componentWillMount() {
     sb = new SendBird({ appId: '45EE91CC-2EF8-4C8B-999F-743FCC1863CD'});
-    sb.connect('hn1174', function (user, error) {
+    sb.connect('ep1247', function (user, error) {
       if (error) {
         console.log(error);
         return;
@@ -78,9 +78,9 @@ class App extends Component {
   renderContent() {
     switch (this.state.loggedIn) {
       case true:
-        return <StudentProfile/>;
+        return <CheckInfo/>;
       case false:
-        return <StudentProfile/>;
+        return <CheckInfo/>;
       default:
         return <Spinner size="large" />;
         // return <CheckInfo/>;

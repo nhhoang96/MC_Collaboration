@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Text, View, TouchableOpacity, Alert } from "react-native";
 import firebase from "firebase";
-import { Button, Card, CardSection, Input, Spinner, Header } from "./components/common";
+import { Button, Card, CardSection, CardSectionRow, Input, Spinner, Header } from "./components/common";
 import StudentProfile from "./screens/StudentProfile";
 import { StackNavigator } from "react-navigation";
 import formattingStyles from './components/styles/formatting';
@@ -72,16 +72,24 @@ class LoginForm extends Component {
     return (
      
       <Card>
+<<<<<<< HEAD
         <CardSection style={{flex: 1}}>
+=======
+        <CardSectionRow>
+>>>>>>> c75eabd68374c5c2d5268316bbf5f06bd20fe7f7
           <Input
             placeholder="ab1234"
             label="User ID"
             value={this.state.userID}
             onChangeText={userID => this.setState({ userID })}
           />
-        </CardSection>
+        </CardSectionRow>
 
+<<<<<<< HEAD
         <CardSection style={{flex: 1}}>
+=======
+        <CardSectionRow>
+>>>>>>> c75eabd68374c5c2d5268316bbf5f06bd20fe7f7
           <Input
             secureTextEntry
             placeholder="password"
@@ -89,9 +97,10 @@ class LoginForm extends Component {
             value={this.state.password}
             onChangeText={password => this.setState({ password })}
           />
-        </CardSection>
+        </CardSectionRow>
 
         <Text style={styles.errorTextStyle}>{this.state.error}</Text>
+<<<<<<< HEAD
         <CardSection>{this.renderButton()}</CardSection>
         {/* <CardSection>
               {this.state.majors}
@@ -111,6 +120,10 @@ class LoginForm extends Component {
               </TouchableOpacity>
               </CardSection> */}
 
+=======
+
+        <CardSectionRow>{this.renderButton()}</CardSectionRow>
+>>>>>>> c75eabd68374c5c2d5268316bbf5f06bd20fe7f7
       </Card>
     );
   }
