@@ -24,7 +24,6 @@ class LoginForm extends Component {
     const { userID, password } = this.state;
 
     this.setState({ error: "", loading: true });
-    Alert.alert(this.state.userID, this.state.password)
     firebase
       .auth()
       .signInWithEmailAndPassword(userID, password)

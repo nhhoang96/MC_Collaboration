@@ -16,7 +16,9 @@ var indexCon = 1;
 class StudentProfile extends Component {
   constructor(props) {
     super(props);
-    this.userRef = firebase.database().ref('users/ep1247/');
+    var userID = this.props.navigation.state.params.ID;
+    this.userRef = firebase.database().ref('users/' + userID);
+    //this.userRef = firebase.database().ref('users/ep1247/');
     this.interestRef = firebase.database().ref('interests/');
     this.courseRef = firebase.database().ref('course/');
     this.majorRef = firebase.database().ref('majors/');
@@ -41,7 +43,7 @@ class StudentProfile extends Component {
       "Human Computer Interaction",
       "Web Development",
       "Mobile Development"
-    ],
+    ],this
     currentclasses: [
       "[CIS 412] System Analysis and Design Applications",
       "[CIS 418] Artificial Intelligence"
@@ -228,7 +230,7 @@ json_function = () => {
 
             </View>
             <View >
-              <DisplayImage />
+              <DisplayImage id ={this.userID}  />
             </View>
           </View>
 

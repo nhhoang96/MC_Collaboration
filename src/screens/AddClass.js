@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { View, Text, TextInput, ScrollView, TouchableOpacity } from 'react-native';
-import { CardSection, Input, Button, Footer } from '../components/common';
+import { CardSection, CardSectionRow, Input, Button, Footer } from '../components/common';
 import textStyles from "../components/styles/text";
 import formattingStyles from '../components/styles/formatting';
 import Icon from "react-native-vector-icons/dist/FontAwesome";
@@ -56,8 +56,8 @@ class AddClass extends Component {
           </CardSection>
 
         </ScrollView>
-        <CardSection>
-          <View style={{ paddingTop: 10, flexDirection: 'row', justifyContent: 'space-between'}}>
+        <CardSectionRow>
+        <View style={{ paddingTop: 10, paddingLeft: 20, flexDirection: 'row', width: 315, justifyContent: 'space-between'}}>
             <TouchableOpacity onPress={() => this.props.navigation.navigate('addInfo')}>
               <Text style={textStyles.label}>Back</Text>
               <Icon name="arrow-circle-left" size={30} style={{ color: "#253A66" }}/>
@@ -67,7 +67,7 @@ class AddClass extends Component {
               <Icon name="arrow-circle-right" size={30} style={{ color: "#253A66" }}/>
             </TouchableOpacity>
           </View>
-        </CardSection>
+        </CardSectionRow>
       </View>
     );
   }

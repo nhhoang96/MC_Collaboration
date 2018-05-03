@@ -10,7 +10,7 @@ class CheckProfile extends Component {
     super(props);
   }
   componentDidMount(){
-    
+    this.listenFor
   }
   render() {
     return (

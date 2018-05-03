@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import textStyles from "../components/styles/text";
 import formattingStyles from '../components/styles/formatting';
-import { CardSection, Input, Button } from "../components/common";
+import { CardSection, CardSectionRow, Input, Button } from "../components/common";
 import Icon from "react-native-vector-icons/dist/FontAwesome";
 import AddInput from "../components/AddInput";
 import { StackNavigator } from "react-navigation";
@@ -108,7 +108,7 @@ class CheckInfo extends Component {
           </View>
         </ScrollView>
         <CardSection>
-          <View style={{ paddingTop: 10, flexDirection: 'row', justifyContent: 'flex-end'}}>
+        <View style={{ paddingTop: 10, paddingLeft: 20, flexDirection: 'row', width: 315, justifyContent: 'flex-end'}}>
             <TouchableOpacity onPress={() => {
                 
                 this.props.navigation.navigate('addInfo');
