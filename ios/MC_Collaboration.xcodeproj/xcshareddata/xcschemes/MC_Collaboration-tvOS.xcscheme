@@ -29,9 +29,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-               BuildableName = "MC_Collaboration-tvOS.app"
-               BlueprintName = "MC_Collaboration-tvOS"
-               ReferencedContainer = "container:MC_Collaboration.xcodeproj">
+               BuildableName = "mc_collaboration-tvOS.app"
+               BlueprintName = "mc_collaboration-tvOS"
+               ReferencedContainer = "container:mc_collaboration.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -43,9 +43,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2D02E48F1E0B4A5D006451C7"
-               BuildableName = "MC_Collaboration-tvOSTests.xctest"
-               BlueprintName = "MC_Collaboration-tvOSTests"
-               ReferencedContainer = "container:MC_Collaboration.xcodeproj">
+               BuildableName = "mc_collaboration-tvOSTests.xctest"
+               BlueprintName = "mc_collaboration-tvOSTests"
+               ReferencedContainer = "container:mc_collaboration.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -61,9 +61,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2D02E48F1E0B4A5D006451C7"
-               BuildableName = "MC_Collaboration-tvOSTests.xctest"
-               BlueprintName = "MC_Collaboration-tvOSTests"
-               ReferencedContainer = "container:MC_Collaboration.xcodeproj">
+               BuildableName = "mc_collaboration-tvOSTests.xctest"
+               BlueprintName = "mc_collaboration-tvOSTests"
+               ReferencedContainer = "container:mc_collaboration.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -71,9 +71,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-            BuildableName = "MC_Collaboration-tvOS.app"
-            BlueprintName = "MC_Collaboration-tvOS"
-            ReferencedContainer = "container:MC_Collaboration.xcodeproj">
+            BuildableName = "mc_collaboration-tvOS.app"
+            BlueprintName = "mc_collaboration-tvOS"
+            ReferencedContainer = "container:mc_collaboration.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -94,9 +94,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-            BuildableName = "MC_Collaboration-tvOS.app"
-            BlueprintName = "MC_Collaboration-tvOS"
-            ReferencedContainer = "container:MC_Collaboration.xcodeproj">
+            BuildableName = "mc_collaboration-tvOS.app"
+            BlueprintName = "mc_collaboration-tvOS"
+            ReferencedContainer = "container:mc_collaboration.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -113,9 +113,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-            BuildableName = "MC_Collaboration-tvOS.app"
-            BlueprintName = "MC_Collaboration-tvOS"
-            ReferencedContainer = "container:MC_Collaboration.xcodeproj">
+            BuildableName = "mc_collaboration-tvOS.app"
+            BlueprintName = "mc_collaboration-tvOS"
+            ReferencedContainer = "container:mc_collaboration.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

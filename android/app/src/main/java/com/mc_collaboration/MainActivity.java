@@ -10,6 +10,6 @@ public class MainActivity extends ReactActivity {
      */
     @Override
     protected String getMainComponentName() {
-        return "MC_Collaboration";
+        return "mc_collaboration";
     }
 }
