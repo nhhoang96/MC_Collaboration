@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Text, View } from "react-native";
 import firebase from "firebase";
-import { Button, Card, CardSection, Input, Spinner, Header } from "./components/common";
+import { Button, Card, CardSection, CardSectionRow, Input, Spinner, Header } from "./components/common";
 import StudentProfile from "./screens/StudentProfile";
 import { StackNavigator } from "react-navigation";
 
@@ -52,16 +52,16 @@ class LoginForm extends Component {
     return (
       <View>
       <Card>
-        <CardSection>
+        <CardSectionRow>
           <Input
             placeholder="ab1234"
             label="User ID"
             value={this.state.userID}
             onChangeText={userID => this.setState({ userID })}
           />
-        </CardSection>
+        </CardSectionRow>
 
-        <CardSection>
+        <CardSectionRow>
           <Input
             secureTextEntry
             placeholder="password"
@@ -69,11 +69,11 @@ class LoginForm extends Component {
             value={this.state.password}
             onChangeText={password => this.setState({ password })}
           />
-        </CardSection>
+        </CardSectionRow>
 
         <Text style={styles.errorTextStyle}>{this.state.error}</Text>
 
-        <CardSection>{this.renderButton()}</CardSection>
+        <CardSectionRow>{this.renderButton()}</CardSectionRow>
       </Card>
       </View>
     );
