@@ -262,7 +262,7 @@ json_function = () => {
 
             </View>
             <View >
-              <DisplayImage />
+              <DisplayImage id ={this.props.navigation.state.params.ID}  />
             </View>
           </View>
 
