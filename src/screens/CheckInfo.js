@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import textStyles from "../components/styles/text";
 import formattingStyles from '../components/styles/formatting';
-import { CardSection, Input, Button } from "../components/common";
+import { CardSection, CardSectionRow, Input, Button } from "../components/common";
 import Icon from "react-native-vector-icons/dist/FontAwesome";
 import AddInput from "../components/AddInput";
 import { StackNavigator } from "react-navigation";
@@ -25,7 +25,7 @@ class CheckInfo extends Component {
       ];
     var userID = this.props.navigation.state.params.ID;
     this.userRef = firebase.database().ref('users/' + userID);
-    
+
   }
 
   state = {
@@ -37,7 +37,7 @@ class CheckInfo extends Component {
     updatedYear : "",
     updatedPhone : "",
 
-    
+
   };
 
   listenForCurrentUserValues(userRef) {
@@ -51,7 +51,7 @@ class CheckInfo extends Component {
   };
 
   onButtonPress() {
-    
+
     userRef.update({
         firstname: this.state.updatedFirstName,
         lastname: this.state.updatedLastName,
@@ -62,7 +62,7 @@ class CheckInfo extends Component {
     // Alert.alert('Button pressed',this.state.updatedYear );
   };
 
-  
+
 
   componentDidMount() {
     this.listenForCurrentUserValues(this.userRef);
@@ -81,36 +81,36 @@ class CheckInfo extends Component {
           </View>
           <View>
             <CardSection>
-              <Input 
-                label="Name" 
-                placeholder={this.state.currentUser.firstname + ' ' + this.state.currentUser.lastname} 
+              <Input
+                label="Name"
+                placeholder={this.state.currentUser.firstname + ' ' + this.state.currentUser.lastname}
                 onChangeText = {(value) => {
                   this.setState({updatedFirstName: value.split(' ')[0]});
                   this.setState({updatedLastName: value.split(' ')[1]})}}
                 />
-              
+
             </CardSection>
             <CardSection>
-              <Input 
-                label="Year" 
-                placeholder={this.state.currentUser.year} 
+              <Input
+                label="Year"
+                placeholder={this.state.currentUser.year}
                 onChangeText = {(value) => {this.setState({updatedYear: value})}}
                 />
             </CardSection>
             <CardSection>
-              <Input 
-                label="Phone Number" 
-                placeholder={this.state.currentUser.phonenumber} 
+              <Input
+                label="Phone Number"
+                placeholder={this.state.currentUser.phonenumber}
                 onChangeText = {(value) => {this.setState({updatedPhone: value})}}
                 />
             </CardSection>
             <Button onPress={this.onButtonPress.bind(this)} >Submit</Button>
           </View>
         </ScrollView>
-        <CardSection>
+        <CardSectionRow>
           <View style={{ paddingTop: 10, flexDirection: 'row', justifyContent: 'flex-end'}}>
             <TouchableOpacity onPress={() => {
-                
+
                 this.props.navigation.navigate('addInfo');
 
                 }}>
@@ -118,7 +118,7 @@ class CheckInfo extends Component {
               <Icon name="arrow-circle-right" size={30} style={{ color: "#253A66" }}/>
             </TouchableOpacity>
           </View>
-        </CardSection>
+        </CardSectionRow>
       </View>
     );
   };
