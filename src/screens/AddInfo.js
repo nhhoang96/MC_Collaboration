@@ -27,7 +27,7 @@ class AddInfo extends Component {
     console.ignoredYellowBox = [
       'Setting a timer'
       ];
-    
+
     this.userRef = firebase.database().ref('users/' + this.props.navigation.state.params.ID);
     this.interestRef = firebase.database().ref('interests/');
     this.majorRef = firebase.database().ref('majors/');
@@ -36,7 +36,7 @@ class AddInfo extends Component {
 
 
   state = { majors: [], minors: [], interests: [], currentUser:[], };
-  
+
   listenForCurrentUserValues(userRef) {
     userRef.on('value', (dataSnapshot) => {
       var currentUser =[];
@@ -169,7 +169,7 @@ class AddInfo extends Component {
         </CardSection>
         </ScrollView>
         <CardSection>
-          <View style={{ paddingTop: 10, flexDirection: 'row', justifyContent: 'space-between'}}>
+          <View style={{ paddingTop: 10, paddingLeft: 20, flexDirection: 'row', width: 315, justifyContent: 'space-between'}}>
           <TouchableOpacity onPress={() => this.props.navigation.navigate('checkInfo',this.props.navigation.state.params)}>
             <Text style={textStyles.label}>Back</Text>
             <Icon name="arrow-circle-left" size={30} style={{ color: "#253A66" }}/>

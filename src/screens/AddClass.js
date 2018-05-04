@@ -20,7 +20,7 @@ class AddClass extends Component {
   componentDidMount() {
     this.listenForCurrentUserValues(this.userRef);
   }
-  
+
   listenForCurrentUserValues(userRef) {
     userRef.on('value', (dataSnapshot) => {
       var currentUser =[];
@@ -31,7 +31,7 @@ class AddClass extends Component {
     });
   };
 
-  
+
   render() {
     return (
       <View style={formattingStyles.container}>

@@ -107,9 +107,9 @@ class CheckInfo extends Component {
           </View>
         </ScrollView>
         <CardSectionRow>
-          <View style={{ paddingTop: 10, flexDirection: 'row', justifyContent: 'flex-end'}}>
+          <View style={{ paddingTop: 10, paddingLeft: 20, flexDirection: 'row', width: 315, justifyContent: 'flex-end'}}>
             <TouchableOpacity onPress={() => {
-                
+
                 this.props.navigation.navigate('addInfo',this.props.navigation.state.params);
 
                 }}>
