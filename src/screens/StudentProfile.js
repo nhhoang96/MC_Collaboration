@@ -16,9 +16,7 @@ var indexCon = 1;
 class StudentProfile extends Component {
   constructor(props) {
     super(props);
-    var userID = this.props.navigation.state.params.ID;
-    this.userRef = firebase.database().ref('users/' + userID);
-    //this.userRef = firebase.database().ref('users/ep1247/');
+    this.userRef = firebase.database().ref('users/' + this.props.navigation.state.params.ID);
     this.interestRef = firebase.database().ref('interests/');
     this.courseRef = firebase.database().ref('course/');
     this.majorRef = firebase.database().ref('majors/');
@@ -230,7 +228,7 @@ json_function = () => {
 
             </View>
             <View >
-              <DisplayImage id ={this.userID}  />
+              <DisplayImage id ={this.props.navigation.state.params.ID}  />
             </View>
           </View>
 
@@ -248,7 +246,7 @@ json_function = () => {
           <InfoBlock info={this.state.currentUser.pastClass + ', ' + this.state.currentUser.pastClass2} title="Previous Classes" />
 
           <View style={{ width: 100, marginTop: 12 }}>
-            <Button onPress={() => this.props.navigation.navigate('chatList')}>Messages</Button>
+            <Button onPress={() => this.props.navigation.navigate('chatList', this.props.navigation.state.params)}>Messages</Button>
           </View>
         </ScrollView>
       )}

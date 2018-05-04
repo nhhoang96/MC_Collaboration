@@ -58,8 +58,7 @@ class CheckInfo extends Component {
         year: this.state.updatedYear,
         phonenumber: this.state.updatedPhone,
     });
-    this.props.navigation.navigate('addInfo');
-    // Alert.alert('Button pressed',this.state.updatedYear );
+    this.props.navigation.navigate('addInfo',this.props.navigation.state.params);
   };
 
   
@@ -111,7 +110,7 @@ class CheckInfo extends Component {
         <View style={{ paddingTop: 10, paddingLeft: 20, flexDirection: 'row', width: 315, justifyContent: 'flex-end'}}>
             <TouchableOpacity onPress={() => {
                 
-                this.props.navigation.navigate('addInfo');
+                this.props.navigation.navigate('addInfo',this.props.navigation.state.params);
 
                 }}>
               <Text style={textStyles.label}>Next</Text>
