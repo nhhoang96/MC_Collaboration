@@ -19,10 +19,11 @@ window.Blob = Blob
 
 class DisplayImage extends Component {
 
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
     this.getImage = this.getImage.bind(this);
     
+    this.userID = this.props.id;
     console.ignoredYellowBox = [
       'Setting a timer'
       ];   
@@ -38,7 +39,7 @@ class DisplayImage extends Component {
     this.preloadImage();
   }
   preloadImage () {
-    firebase.storage().ref('profile_images/ep1247.png').getDownloadURL().then((url) => {
+    firebase.storage().ref('profile_images/' + this.userID + '.png').getDownloadURL().then((url) => {
       this.setState({image_uri: url});
     })
   }
@@ -49,7 +50,7 @@ class DisplayImage extends Component {
       return new Promise((resolve, reject) => {
         const uploadUri = Platform.OS === 'ios'? uri.replace('file://', '') : uri
         let uploadBlob = null
-        const imageRef = firebase.storage().ref('profile_images').child('ep1247.png')
+        const imageRef = firebase.storage().ref('profile_images').child(this.userID + '.png')
         fs.readFile(uploadUri, 'base64')
           .then((data) => {
             return Blob.build(data, { type: `${mime};BASE64` })

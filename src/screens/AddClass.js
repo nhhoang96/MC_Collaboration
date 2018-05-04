@@ -1,18 +1,43 @@
 import React, { Component } from "react";
 import { View, Text, TextInput, ScrollView, TouchableOpacity } from 'react-native';
-import { CardSection, Input, Button, Footer } from '../components/common';
+import { CardSection, CardSectionRow, Input, Button, Footer } from '../components/common';
 import textStyles from "../components/styles/text";
 import formattingStyles from '../components/styles/formatting';
 import Icon from "react-native-vector-icons/dist/FontAwesome";
 import AddInput from "../components/AddInput";
+import firebase from 'firebase';
 
 class AddClass extends Component {
+  constructor(props) {
+    super(props);
+    console.ignoredYellowBox = [
+      'Setting a timer'
+      ];
+      this.userRef = firebase.database().ref('users/' + this.props.navigation.state.params.ID);
+  }
+
+  state = {currentUser: []};
+  componentDidMount() {
+    this.listenForCurrentUserValues(this.userRef);
+  }
+  
+  listenForCurrentUserValues(userRef) {
+    userRef.on('value', (dataSnapshot) => {
+      var currentUser =[];
+      this.setState({
+        currentUser: dataSnapshot.val()
+      });
+
+    });
+  };
+
+  
   render() {
     return (
       <View style={formattingStyles.container}>
         <ScrollView style={styles.infoContainerStyle}>
           <View>
-            <Text style={textStyles.headerText}>Welcome, Elizabeth!</Text>
+            <Text style={textStyles.headerText}>{"Welcome, " + this.state.currentUser.firstname + "!"}</Text>
             <Text>
               To get started, review your information and add additional
               information to help connect with others
@@ -56,18 +81,18 @@ class AddClass extends Component {
           </CardSection>
 
         </ScrollView>
-        <CardSection>
-          <View style={{ paddingTop: 10, flexDirection: 'row', justifyContent: 'space-between'}}>
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('addInfo')}>
+        <CardSectionRow>
+        <View style={{ paddingTop: 10, paddingLeft: 20, flexDirection: 'row', width: 315, justifyContent: 'space-between'}}>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('addInfo',this.props.navigation.state.params)}>
               <Text style={textStyles.label}>Back</Text>
               <Icon name="arrow-circle-left" size={30} style={{ color: "#253A66" }}/>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('student')}>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('student',this.props.navigation.state.params)}>
               <Text style={textStyles.label}>Next</Text>
               <Icon name="arrow-circle-right" size={30} style={{ color: "#253A66" }}/>
             </TouchableOpacity>
           </View>
-        </CardSection>
+        </CardSectionRow>
       </View>
     );
   }

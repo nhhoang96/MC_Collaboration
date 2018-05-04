@@ -12,11 +12,9 @@ class LoginForm extends Component {
 
   listenForCurrentUserValues(userRef) {
     userRef.on('value', (dataSnapshot) => {
-      var currentUser =[];
       this.setState({
         currentUser: dataSnapshot.val()
       });
-
     });
   }
 
@@ -24,7 +22,6 @@ class LoginForm extends Component {
     const { userID, password } = this.state;
 
     this.setState({ error: "", loading: true });
-    Alert.alert(this.state.userID, this.state.password)
     firebase
       .auth()
       .signInWithEmailAndPassword(userID, password)
@@ -41,6 +38,7 @@ class LoginForm extends Component {
     userRef = firebase.database().ref('users/' + this.state.userID.split('@')[0]);
     this.listenForCurrentUserValues(userRef)
     this.props.navigation.setParams({ ID: this.state.userID.split('@')[0] });
+    Alert.alert(this.state.userID.split('@')[0])
     this.props.navigation.navigate('checkInfo', this.props.navigation.state.params);
 
     this.setState({
@@ -79,7 +77,6 @@ class LoginForm extends Component {
             onChangeText={userID => this.setState({ userID })}
           />
         </CardSectionRow>
-
 
         <CardSectionRow>
           <Input
