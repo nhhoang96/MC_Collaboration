@@ -5,6 +5,7 @@ import UserBlock from "../components/UserBlock";
 
 import moment from 'moment';
 import SendBird from 'sendbird';
+import firebase from 'firebase';
 
 var sb = null;
 
@@ -12,13 +13,16 @@ class Messaging extends Component {
   constructor(props) {
     super(props);
     sb = SendBird.getInstance();
+    this.userRef = firebase.database().ref('users/' + this.props.navigation.state.params.ID);
     ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
+      currentUser: [],
       userId: 'ep1247',
       username: 'Elizabeth Pinkham',
       channelList: [],
       dataSource: ds.cloneWithRows([]),
-      listQuery: sb.GroupChannel.createMyGroupChannelListQuery()
+      listQuery: sb.GroupChannel.createMyGroupChannelListQuery(),
+      image_uri: null,
     };
     this.state.listQuery.includeEmpty = true;
     this._getChannelList = this._getChannelList.bind(this);
@@ -27,8 +31,15 @@ class Messaging extends Component {
     this._channelUpdate = this._channelUpdate.bind(this);
     this._refreshChannelList = this._refreshChannelList.bind(this);
   }
+  preloadImage () {
+    firebase.storage().ref('profile_images/' + this.props.navigation.state.params.ID + '.png').getDownloadURL().then((url) => {
+      this.setState({image_uri: url});
+    })
+  }
 
   componentDidMount() {
+    this.listenForCurrentUserValues(this.userRef);
+    this.preloadImage();
     this._getChannelList();
 
     var _SELF = this;
@@ -49,6 +60,16 @@ class Messaging extends Component {
       _SELF._refreshChannelList();
     }
     sb.addConnectionHandler('ConnectionHandlerInList', ConnectionHandler);
+};
+
+listenForCurrentUserValues(userRef) {
+  userRef.on('value', (dataSnapshot) => {
+    var currentUser =[];
+    this.setState({
+      currentUser: dataSnapshot.val()
+    });
+
+  });
 };
 
 componentWillUnmount() {
@@ -95,6 +116,7 @@ _channelTitle(members) {
 
 _onChannelPress(channel) {
   var _SELF = this;
+  var id = this.props.navigation.state.params.ID;
   if (_SELF.state.editMode) {
     Alert.alert(
       'Group Channel Edit',
@@ -122,7 +144,7 @@ _onChannelPress(channel) {
       ]
     )
   } else {
-    _SELF.props.navigation.navigate('chat', { channel: channel, _onHideChannel: _SELF._onHideChannel, refresh: _SELF._refreshChannelList });
+    _SELF.props.navigation.navigate('chat', { channel: channel, _onHideChannel: _SELF._onHideChannel, refresh: _SELF._refreshChannelList, id }, );
   }
 }
 
@@ -164,7 +186,7 @@ _refreshChannelList() {
               <TouchableHighlight onPress={() => this._onChannelPress(rowData)}>
                 <View style={styles.listItem}>
                   <View style={styles.listIcon}>
-                    <Image key={rowData.coverUrl} source={{uri: 'https:upload.wikimedia.org/wikipedia/commons/0/08/Omri_Levy_Picture.jpg'}} />
+                    <Image key={rowData.coverUrl} source={{uri: 'https:upload.wikimedia.org/wikipedia/commons/0/08/Omri_Levy_Picture.jpg' }} />
                   </View>
                   <View style={styles.listInfo}>
                     <Text>{this._channelTitle(rowData.members)}</Text>

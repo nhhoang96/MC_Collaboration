@@ -92,7 +92,7 @@ class DisplayImage extends Component {
           // You can also display the image using data:
           //let image_uri = { uri: 'data:image/jpeg;base64,' + response.data };
           this.uploadImage(response.uri)
-            .then(url => { Alert.alert('Your photo has been updated', url); })
+            .then(url => { Alert.alert('Your photo has been updated'); })
            
         }
       });

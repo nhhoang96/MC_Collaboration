@@ -23,6 +23,8 @@ const ChatView = Platform.select({
 })();
 
 import SendBird from 'sendbird';
+import firebase from 'firebase';
+
 var sb = null;
 
 class Chat extends Component {
@@ -41,6 +43,7 @@ class Chat extends Component {
       show: false,
       lastMessage: null,
       hasRendered: false,
+      image_uri: null
     };
     // this._onBackPress = this._onBackPress.bind(this);
     this._onSend = this._onSend.bind(this);
@@ -57,6 +60,7 @@ class Chat extends Component {
 
   componentDidMount() {
     var _SELF = this;
+    this.preloadImage();
     if (!_SELF.state.hasRendered){
       _SELF.state.hasRendered = true;
       _SELF._getChannelMessage(false);
@@ -166,6 +170,11 @@ _onChangeText(text) {
     disabled: (text.trim().length > 0) ? false : true
   })
 }
+preloadImage () {
+  firebase.storage().ref('profile_images/' + this.props.navigation.state.params.id+ '.png').getDownloadURL().then((url) => {
+    this.setState({image_uri: url});
+  })
+}
 
 render() {
   return (
@@ -187,7 +196,7 @@ render() {
                     <TouchableHighlight underlayColor='#f7f8fc' onPress={() => this._onUserPress(rowData.sender)}>
                       <View style={[styles.listItem, {transform: [{ scaleY: -1 }]}]}>
                         <View style={styles.listIcon}>
-                          <Image style={styles.senderIcon} key={rowData.sender.url} source={{uri: 'https:upload.wikimedia.org/wikipedia/commons/0/08/Omri_Levy_Picture.jpg'}} />
+                          <Image style={styles.senderIcon} key={rowData.sender.url} source={{uri: this.state.image_uri}} />
                         </View>
                         <View style={styles.senderContainer}>
                           <Text style={[styles.senderText, {color: '#3e3e55'}]}>{rowData.sender.nickname}</Text>
@@ -201,11 +210,11 @@ render() {
                     <TouchableHighlight underlayColor='#f7f8fc' onPress={() => this._onUserPress(rowData.sender)}>
                       <View style={[styles.listItem, {transform: [{ scaleY: -1 }]}]}>
                         <View style={styles.listIcon}>
-                          <Image style={styles.senderIcon} key={rowData.sender.url} source={{uri: 'https://upload.wikimedia.org/wikipedia/commons/0/08/Omri_Levy_Picture.jpg'}} />
+                          <Image style={styles.senderIcon} key={rowData.sender.url} source={{uri: this.state.image_uri}} />
                         </View>
                         <View style={styles.senderContainer}>
                           <Text style={[styles.senderText, {color: '#3e3e55'}]}>{rowData.sender.nickname}</Text>
-                          <Image style={{width: 100, height: 70}} key={rowData.url} source={{uri: 'https://upload.wikimedia.org/wikipedia/commons/0/08/Omri_Levy_Picture.jpg'}} />
+                          <Image style={{width: 100, height: 70}} key={rowData.url} source={{uri: this.state.image_uri}} />
                         </View>
                       </View>
                     </TouchableHighlight>

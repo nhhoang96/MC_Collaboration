@@ -38,7 +38,6 @@ class LoginForm extends Component {
     userRef = firebase.database().ref('users/' + this.state.userID.split('@')[0]);
     this.listenForCurrentUserValues(userRef)
     this.props.navigation.setParams({ ID: this.state.userID.split('@')[0] });
-    // Alert.alert(this.state.userID.split('@')[0])
     this.props.navigation.navigate('checkInfo', this.props.navigation.state.params);
 
     this.setState({
