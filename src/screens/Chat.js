@@ -43,7 +43,8 @@ class Chat extends Component {
       show: false,
       lastMessage: null,
       hasRendered: false,
-      image_uri: null
+      image_uri: null,
+      other_image_uri: null
     };
     // this._onBackPress = this._onBackPress.bind(this);
     this._onSend = this._onSend.bind(this);
@@ -171,8 +172,16 @@ _onChangeText(text) {
   })
 }
 preloadImage () {
+  // this.state.channel.members.map(e => {
+  //   firebase.storage().ref('profile_images/' + e.userId + '.png').getDownloadURL().then((url) => {
+  //     this.state.image_uri.push(url);
+  //   })
+  // })
   firebase.storage().ref('profile_images/' + this.props.navigation.state.params.id+ '.png').getDownloadURL().then((url) => {
     this.setState({image_uri: url});
+  })
+  firebase.storage().ref('profile_images/' + this.state.channel.members[0].userId + '.png').getDownloadURL().then((url) => {
+    this.setState({other_image_uri: url});
   })
 }
 
@@ -196,7 +205,12 @@ render() {
                     <TouchableHighlight underlayColor='#f7f8fc' onPress={() => this._onUserPress(rowData.sender)}>
                       <View style={[styles.listItem, {transform: [{ scaleY: -1 }]}]}>
                         <View style={styles.listIcon}>
-                          <Image style={styles.senderIcon} key={rowData.sender.url} source={{uri: this.state.image_uri}} />
+                          {rowData.sender.userId == this.props.navigation.state.params.id &&
+                            <Image style={styles.senderIcon} key={rowData.sender.url} source={{uri: this.state.image_uri}} />
+                          }
+                          {rowData.sender.userId != this.props.navigation.state.params.id &&
+                            <Image style={styles.senderIcon} key={rowData.sender.url} source={{uri: this.state.other_image_uri}} />
+                          }
                         </View>
                         <View style={styles.senderContainer}>
                           <Text style={[styles.senderText, {color: '#3e3e55'}]}>{rowData.sender.nickname}</Text>
