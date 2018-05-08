@@ -8,6 +8,10 @@ class DropDownInput extends Component {
   constructor(props) {
     super(props);
      //this.title = props.title;
+
+     if (props.getValue) {
+       props.getValue(this.returnValue.bind(this));
+     }
   }
   //const { containerStyle, rowStyle, inputStyle, textStyle } = Styles;
   
@@ -15,12 +19,15 @@ class DropDownInput extends Component {
     title: this.props.title,
     options: this.props.options,
     value: "",
-    classes: ["First Year", "Sophomore", "Junior", "Senoir"],
   };
 
  
   updateValue = (value) => {
     this.setState({ value: value })
+ }
+
+ returnValue() {
+   return this.state.value;
  }
 
   render () {

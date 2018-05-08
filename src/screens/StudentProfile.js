@@ -117,9 +117,7 @@ class StudentProfile extends Component {
         currentUser: dataSnapshot.val()
       });
 
-    });var index = 1;
-    var indexMin = 1;
-    var indexCon = 1;
+    });
   }
 
   _addMajor() {

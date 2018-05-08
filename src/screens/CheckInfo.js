@@ -29,15 +29,20 @@ class CheckInfo extends Component {
   }
 
   state = {
-    majors: [<AddInput text={"Major"} labels={["1", "2", "3"]} key={0} />],
-    classes: ["First Year", "Sophomore", "Junoir", "Senior"],
     currentUser: [],
-    updatedFirstName : "",
-    updatedLastName: "",
-    updatedYear : "",
-    updatedPhone : "",
+    updatedFirstName : '',
+    updatedLastName: '',
+    updatedYear : '',
+    updatedPhone : '',
+  };
 
-
+  updateValueBeforeAdd() {
+      this.setState({
+        updatedFirstName: this.state.currentUser.firstname,
+        updatedLastName: this.state.currentUser.lastname,
+        updatedYear: this.state.currentUser.year,
+        updatedPhone: this.state.currentUser.phonenumber,
+      })
   };
 
   listenForCurrentUserValues(userRef) {
@@ -46,12 +51,12 @@ class CheckInfo extends Component {
       this.setState({
         currentUser: dataSnapshot.val()
       });
-
+      this.updateValueBeforeAdd();
     });
   };
 
   onButtonPress() {
-
+    
     userRef.update({
         firstname: this.state.updatedFirstName,
         lastname: this.state.updatedLastName,
@@ -64,10 +69,11 @@ class CheckInfo extends Component {
 
 
   componentDidMount() {
-    this.listenForCurrentUserValues(this.userRef);
+    this.listenForCurrentUserValues(this.userRef); 
   };
 
   render() {
+    
     return (
       <View style={formattingStyles.container}>
         <ScrollView style={styles.infoContainerStyle}>
@@ -92,14 +98,14 @@ class CheckInfo extends Component {
             <CardSection>
               <Input
                 label="Year"
-                placeholder={this.state.currentUser.year}
+                placeholder={this.state.currentUser.year +''}
                 onChangeText = {(value) => {this.setState({updatedYear: value})}}
                 />
             </CardSection>
             <CardSection>
               <Input
                 label="Phone Number"
-                placeholder={this.state.currentUser.phonenumber}
+                placeholder={this.state.currentUser.phonenumber +''}
                 onChangeText = {(value) => {this.setState({updatedPhone: value})}}
                 />
             </CardSection>

@@ -4,7 +4,8 @@ import {
   Text,
   TextInput,
   ScrollView,
-  TouchableOpacity
+  TouchableOpacity,
+  Alert
 } from "react-native";
 import {
   Header,
@@ -32,16 +33,41 @@ class AddInfo extends Component {
       'Setting a timer'
       ];
 
-    this.userRef = firebase.database().ref('users/' + this.props.navigation.state.params.ID);
+    var userID = this.props.navigation.state.params.ID;
+    this.userRef = firebase.database().ref('users/' + userID);
     this.interestRef = firebase.database().ref('interests/');
     this.majorRef = firebase.database().ref('majors/');
     this.minorRef = firebase.database().ref('minors/');
   }
 
+  state = { majors: [], 
+    minors: [], 
+    interests: [], 
+    currentUser:[], 
+    curMaj:[],
+    curMinor:[], 
+    curInterest:[], 
+    updatedMajor:'', 
+    updatedMinor:'', 
+    updatedInterest:'' 
+  };
 
-  state = { majors: [], minors: [], interests: [], currentUser:[], curMaj:[],
-    curMinor:[],
-    curInterest:[], };
+  updateValueBeforeAdd() {
+    this.setState({
+      updatedMajor: this.state.currentUser.major,
+      updatedMinor: this.state.currentUser.minor,
+      updatedInterest: this.state.currentUser.interest,
+    }); 
+    
+    
+};
+
+  componentDidMount(){
+    this.listenForCurrentUserValues(this.userRef);
+    this.listenForMajors(this.majorRef);
+    this.listenForMinors(this.minorRef);
+    this.listenForInterests(this.interestRef);
+  };
 
   listenForCurrentUserValues(userRef) {
     userRef.on('value', (dataSnapshot) => {
@@ -49,25 +75,21 @@ class AddInfo extends Component {
       this.setState({
         currentUser: dataSnapshot.val()
       });
-
+     
     });
   };
 
+  
   onButtonPress() {
-    // userRef.update({
+    // this.userRef.update({
     //     major: this.state.major,
     //     minor: this.state.minor,
     //     interests: this.state.interest,
     // });
-    this.props.navigation.navigate('addInfo', this.props.navigation.state.params);
+    this.props.navigation.navigate('addClass', this.props.navigation.state.params);
   };
 
-  componentDidMount(){
-    this.listenForCurrentUserValues(this.userRef)
-    this.listenForMajors(this.majorRef);
-    this.listenForMinors(this.minorRef);
-    this.listenForInterests(this.interestRef);
-  }
+  
 
   listenForMajors (majorRef) {
     majorRef.on('value', (dataSnapshot) => {
@@ -114,7 +136,7 @@ class AddInfo extends Component {
     this.setState({
         curMaj: this.state.curMaj
     });
-
+    this.updateValueBeforeAdd();
   }
 
   _subtractMajor() {
@@ -161,7 +183,11 @@ class AddInfo extends Component {
 
   render() {
     let curMaj = this.state.curMaj.map((a, i) => {
-      return <DropDownInput title={"Major"} options={this.state.majors} key={i}/>
+      return <DropDownInput 
+                title={"Major"} 
+                options={this.state.majors} 
+                key={i} 
+                getValue ={returnValue => {this.state.updatedMajor = returnValue }}/>
     });
 
     let curMinor = this.state.curMinor.map((a, i) => {
@@ -181,9 +207,13 @@ class AddInfo extends Component {
               information to help connect with others
             </Text>
           </View>
-
+          <View>
           <CardSection>
-              <DropDownInput title={"Major"} options={this.state.majors} key={0}/>
+          <DropDownInput 
+                title={"Major"} 
+                options={this.state.majors} 
+                key={0} 
+                getValue ={returnValue => {this.state.updatedMajor = returnValue }}/>
               {curMaj}
               <TouchableOpacity
                 onPress={() => {
@@ -245,7 +275,7 @@ class AddInfo extends Component {
                 <Icon name="minus-circle" size={30} color="#253A66" />
               </TouchableOpacity>
             </CardSection>
-          
+          </View>
         <CardSection>
         <Button onPress={this.onButtonPress.bind(this)} >Submit</Button>
         </CardSection>
