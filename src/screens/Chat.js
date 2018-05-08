@@ -14,6 +14,7 @@ import {
   KeyboardAvoidingView,
   ListView
 } from 'react-native';
+import textStyles from "../components/styles/text";
 import { Button } from "../components/common";
 import moment from 'moment';
 
@@ -188,6 +189,10 @@ preloadImage () {
 render() {
   return (
     <ChatView behavior="padding" style={styles.container}>
+      <View style={{ height: 60, alignItems: 'center', paddingTop: 5}}>
+        <Text style={textStyles.headerText}>{this.state.channel.members[0].nickname}</Text>
+          <Text>{this.state.channel.members[0].connectionStatus}</Text>
+      </View>
         <View style={[styles.chatContainer, {transform: [{ scaleY: -1 }]}]}>
           <ListView
             enableEmptySections={true}

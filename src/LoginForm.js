@@ -7,8 +7,11 @@ import { StackNavigator } from "react-navigation";
 import formattingStyles from './components/styles/formatting';
 import Icon from "react-native-vector-icons/dist/FontAwesome";
 
+import SendBird from 'sendbird';
+
 class LoginForm extends Component {
   state = { userID: "", password: "", error: "", loading: false, currentUser: [] };
+
 
   listenForCurrentUserValues(userRef) {
     userRef.on('value', (dataSnapshot) => {
@@ -39,6 +42,14 @@ class LoginForm extends Component {
     this.listenForCurrentUserValues(userRef)
     this.props.navigation.setParams({ ID: this.state.userID.split('@')[0] });
     this.props.navigation.navigate('checkInfo', this.props.navigation.state.params);
+
+    sb = new SendBird({ appId: '45EE91CC-2EF8-4C8B-999F-743FCC1863CD'});
+    sb.connect(this.state.userID.split('@')[0], function (user, error) {
+      if (error) {
+        console.log(error);
+        return;
+      }
+    });
 
     this.setState({
       userID: "",

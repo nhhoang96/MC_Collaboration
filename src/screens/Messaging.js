@@ -17,8 +17,6 @@ class Messaging extends Component {
     ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
       currentUser: [],
-      userId: 'ep1247',
-      username: 'Elizabeth Pinkham',
       channelList: [],
       dataSource: ds.cloneWithRows([]),
       listQuery: sb.GroupChannel.createMyGroupChannelListQuery(),
