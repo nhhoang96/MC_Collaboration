@@ -9,7 +9,7 @@ import firebase from 'firebase';
 import DropDownInput from "../components/DropDownInput";
 import DisplayImage from "../components/DisplayImage";
 
-var index = 1;
+var indexMaj = 1;
 var indexMin = 1;
 var indexCon = 1;
 
@@ -53,13 +53,6 @@ class StudentProfile extends Component {
     ]
   };
 
-json_function = () => {
-    var json_fragment = this.userRef.concentration;
-    Alert.alert(
-      'Json_text', json_fragment
-    );
-}
-
   componentDidMount() {
     this.listenForCurrentUserValues(this.userRef);
     this.listenForMajors(this.majorRef);
@@ -73,9 +66,7 @@ json_function = () => {
             curCourse.push(child.val());
       });
       this.setState({
-
       });
-
     });
   }
 
@@ -126,11 +117,13 @@ json_function = () => {
         currentUser: dataSnapshot.val()
       });
 
-    });
+    });var index = 1;
+    var indexMin = 1;
+    var indexCon = 1;
   }
 
   _addMajor() {
-    let temp = this.index ++;
+    let temp = this.indexMaj ++;
     this.state.curMaj.push(temp);
     this.setState({
         curMaj: this.state.curMaj
@@ -139,7 +132,7 @@ json_function = () => {
   }
 
   _subtractMajor() {
-    let temp = this.index --;
+    let temp = this.indexMaj --;
     this.state.curMaj.pop();
     this.setState({
         curMaj: this.state.curMaj
@@ -156,7 +149,7 @@ json_function = () => {
   }
 
   _subtractMinor() {
-    let temp = this.indexMinor --;
+    let temp = this.indexMin --;
     this.state.curMinor.pop();
     this.setState({
         curMinor: this.state.curMinor

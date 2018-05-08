@@ -1,10 +1,11 @@
 import React, { Component } from "react";
-import { View, Text, TextInput, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, ScrollView, TouchableOpacity, Alert } from 'react-native';
 import { CardSection, CardSectionRow, Input, Button, Footer } from '../components/common';
 import textStyles from "../components/styles/text";
 import formattingStyles from '../components/styles/formatting';
 import Icon from "react-native-vector-icons/dist/FontAwesome";
 import AddInput from "../components/AddInput";
+import DropDownInput from "../components/DropDownInput";
 import firebase from 'firebase';
 
 class AddClass extends Component {
@@ -14,11 +15,13 @@ class AddClass extends Component {
       'Setting a timer'
       ];
       this.userRef = firebase.database().ref('users/' + this.props.navigation.state.params.ID);
+      this.courseRef = firebase.database().ref('course/');
   }
 
-  state = {currentUser: []};
+  state = {currentUser: [], course: []};
   componentDidMount() {
     this.listenForCurrentUserValues(this.userRef);
+    this.listenForClass(this.courseRef);
   }
 
   listenForCurrentUserValues(userRef) {
@@ -30,6 +33,20 @@ class AddClass extends Component {
 
     });
   };
+
+  listenForClass (courseRef) {
+    courseRef.on('value', (dataSnapshot) => {
+      var course = [];
+      dataSnapshot.forEach((child) => {
+            course.push(child.val());
+           
+      });
+      this.setState({
+        course: course
+      });
+
+    });
+  }
 
 
   render() {
@@ -45,7 +62,7 @@ class AddClass extends Component {
           </View>
 
           <CardSection>
-            <AddInput text="Previous Classes" placeholder="ex. [CIS 180] Intro to Computer Science" />
+          <DropDownInput title={"Previous Classes"} options={this.state.course}/>
             <TouchableOpacity
               style={{ alignSelf: "flex-end" }}
               onPress={() => {
@@ -63,7 +80,7 @@ class AddClass extends Component {
           </CardSection>
 
           <CardSection>
-            <AddInput text="Current Classes" placeholder="ex. [CIS 191] Web Development I" />
+          <DropDownInput title={"Current Classes"} options={this.state.course}/>
             <TouchableOpacity
               style={{ alignSelf: "flex-end" }}
               onPress={() => {

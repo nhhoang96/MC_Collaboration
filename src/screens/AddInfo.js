@@ -21,6 +21,10 @@ import AddInput from "../components/AddInput";
 import DropDownInput from "../components/DropDownInput";
 import firebase from "firebase";
 
+var indexMaj = 1;
+var indexMin = 1;
+var indexInt = 1;
+
 class AddInfo extends Component {
   constructor(props){
     super(props);
@@ -35,7 +39,9 @@ class AddInfo extends Component {
   }
 
 
-  state = { majors: [], minors: [], interests: [], currentUser:[], };
+  state = { majors: [], minors: [], interests: [], currentUser:[], curMaj:[],
+    curMinor:[],
+    curInterest:[], };
 
   listenForCurrentUserValues(userRef) {
     userRef.on('value', (dataSnapshot) => {
@@ -102,7 +108,69 @@ class AddInfo extends Component {
     });
   }
 
+  _addMajor() {
+    let temp = this.indexMaj ++;
+    this.state.curMaj.push(temp);
+    this.setState({
+        curMaj: this.state.curMaj
+    });
+
+  }
+
+  _subtractMajor() {
+    let temp = this.indexMaj --;
+    this.state.curMaj.pop();
+    this.setState({
+        curMaj: this.state.curMaj
+    });
+  }
+
+
+  _addMinor() {
+    let temp = this.indexMin ++;
+    this.state.curMinor.push(temp);
+    this.setState({
+        curMinor: this.state.curMinor
+    });
+  }
+
+  _subtractMinor() {
+    let temp = this.indexMinor --;
+    this.state.curMinor.pop();
+    this.setState({
+        curMinor: this.state.curMinor
+    });
+  }
+
+  _addInterest() {
+    let temp = this.indexInt ++;
+    this.state.curInterest.push(temp);
+    this.setState({
+      curInterest: this.state.curInterest
+    });
+  }
+
+  _subtractInterest() {
+    let temp = this.indexInt --;
+    this.state.curInterest.pop();
+    this.setState({
+        curInterest: this.state.curInterest
+    });
+  }
+
+
   render() {
+    let curMaj = this.state.curMaj.map((a, i) => {
+      return <DropDownInput title={"Major"} options={this.state.majors} key={i}/>
+    });
+
+    let curMinor = this.state.curMinor.map((a, i) => {
+      return <DropDownInput title={"Minor"} options={this.state.minors} key={i}/>
+    });
+
+    let curInterest = this.state.curInterest.map((a, i) => {
+      return <DropDownInput title={"Interest"} options={this.state.interests} key={i}/>
+    });
     return (
       <View style={formattingStyles.container}>
         <ScrollView style={styles.infoContainerStyle}>
@@ -113,57 +181,71 @@ class AddInfo extends Component {
               information to help connect with others
             </Text>
           </View>
+
           <CardSection>
-          <DropDownInput title={"Major"} options={this.state.majors} key ={0}/>
+              <DropDownInput title={"Major"} options={this.state.majors} key={0}/>
+              {curMaj}
+              <TouchableOpacity
+                onPress={() => {
+                  this._addMajor()
+                  {curMaj}
+                }}
+                style={{ alignSelf: "flex-end" }}
+              >
+                <Icon name="plus-circle" size={30} color="#253A66" />
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                onPress={() => this._subtractMajor()}
+                style={{ alignSelf: "flex-end" }}
+              >
+                <Icon name="minus-circle" size={30} color="#253A66" />
+              </TouchableOpacity>
+            </CardSection>
+            
+            <CardSection>
+            <DropDownInput title={"Minor"} options={this.state.minors} key={0}/>
+            {curMinor}
             <TouchableOpacity
-              style={{ alignSelf: "flex-end" }}
-              onPress={() => {
-                this.state.majors.push(
-                  <AddInput
-                    text="Major(s)"
-                    labels={["1", "2", "3"]}
-                    key={this.state.majors.length}
-                  />
-                );
-              }}
-            >
-              <Icon name="plus-circle" size={30} color="#253A66" />
-            </TouchableOpacity>
-          </CardSection>
-          <CardSection>
-          <DropDownInput title={"Minors"} options={this.state.minors}/>
+                onPress={() => {
+                  this._addMinor()
+                  {curMinor}
+                }}
+                style={{ alignSelf: "flex-end" }}
+              >
+                <Icon name="plus-circle" size={30} color="#253A66" />
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                onPress={() => this._subtractMinor()}
+                style={{ alignSelf: "flex-end" }}
+              >
+                <Icon name="minus-circle" size={30} color="#253A66" />
+              </TouchableOpacity>
+            </CardSection>
+            
+            <CardSection>
+              <DropDownInput title={"Interests"} options={this.state.interests} key={0}/>
+              {curInterest}
             <TouchableOpacity
-              style={{ alignSelf: "flex-end" }}
-              onPress={() => {
-                this.state.majors.push(
-                  <AddInput
-                    text="Major(s)"
-                    labels={["1", "2", "3"]}
-                    key={this.state.majors.length}
-                  />
-                );
+                onPress={() => {
+                  this._addInterest()
+                  {curInterest}
+                }}
+                style={{ alignSelf: "flex-end" 
               }}
-            >
-              <Icon name="plus-circle" size={30} color="#253A66" />
-            </TouchableOpacity>
-          </CardSection>
-          <CardSection>
-          <DropDownInput title={"Interests"} options={this.state.interests} key ={0}/>
-            <TouchableOpacity
-              style={{ alignSelf: "flex-end" }}
-              onPress={() => {
-                this.state.majors.push(
-                  <AddInput
-                    text="Major(s)"
-                    labels={["1", "2", "3"]}
-                    key={this.state.majors.length}
-                  />
-                );
-              }}
-            >
-              <Icon name="plus-circle" size={30} color="#253A66" />
-            </TouchableOpacity>
-          </CardSection>
+              >
+                <Icon name="plus-circle" size={30} color="#253A66" />
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                onPress={() => this._subtractInterest()}
+                style={{ alignSelf: "flex-end" }}
+              >
+                <Icon name="minus-circle" size={30} color="#253A66" />
+              </TouchableOpacity>
+            </CardSection>
+          
         <CardSection>
         <Button onPress={this.onButtonPress.bind(this)} >Submit</Button>
         </CardSection>
