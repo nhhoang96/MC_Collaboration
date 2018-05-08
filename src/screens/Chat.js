@@ -190,8 +190,12 @@ render() {
   return (
     <ChatView behavior="padding" style={styles.container}>
       <View style={{ height: 60, alignItems: 'center', paddingTop: 5}}>
-        <Text style={textStyles.headerText}>{this.state.channel.members[0].nickname}</Text>
-          <Text>{this.state.channel.members[0].connectionStatus}</Text>
+        {this.state.channel.members.map(e => {
+          if(e.userId != this.props.navigation.state.params.id)
+            return <View><Text style={textStyles.headerText}>{e.nickname}</Text>
+            <Text style={{textAlign: 'center'}}>{e.connectionStatus}</Text></View>
+        }
+        )}
       </View>
         <View style={[styles.chatContainer, {transform: [{ scaleY: -1 }]}]}>
           <ListView
