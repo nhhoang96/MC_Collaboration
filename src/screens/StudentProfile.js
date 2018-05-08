@@ -12,6 +12,9 @@ import DisplayImage from "../components/DisplayImage";
 var indexMaj = 1;
 var indexMin = 1;
 var indexCon = 1;
+var indexInterest = 1;
+var indexConClass = 1;
+var indexPastClass = 1;
 
 class StudentProfile extends Component {
   constructor(props) {
@@ -22,6 +25,8 @@ class StudentProfile extends Component {
     this.majorRef = firebase.database().ref('majors/');
     this.minorRef = firebase.database().ref('minors/');
     this.concentrationRef = firebase.database().ref('concentrations/');
+
+    this.courseRef = firebase.database().ref('course/');
   };
 
   state = {
@@ -31,26 +36,16 @@ class StudentProfile extends Component {
     currentUser: [],
     year: ['Freshman', 'Sophomore', 'Junior', 'Senior'],
     majors: [],
+    interests: [],
+    courses: [],
     curMaj:[],
     curMinor:[],
     curConcen:[],
+    curConCourse: [],
+    curPastCourse: [],
+    curInterest: [],
     minors: [],
     concentrations: [],
-    interests: [
-      "Artificial Intelligence",
-      "Human Computer Interaction",
-      "Web Development",
-      "Mobile Development"
-    ],
-    currentclasses: [
-      "[CIS 412] System Analysis and Design Applications",
-      "[CIS 418] Artificial Intelligence"
-    ],
-    prevclasses: [
-      "[CIS 411] Systems Analysis and Design Concepts",
-      "[CIS 291] Web Development: Server Side",
-      "[CIS 432] Database Applications"
-    ]
   };
 
   componentDidMount() {
@@ -58,14 +53,30 @@ class StudentProfile extends Component {
     this.listenForMajors(this.majorRef);
     this.listenForMinors(this.minorRef);
     this.listenForConcentration(this.concentrationRef);
+    this.listenForInterests(this.interestRef);
+    this.listenForCourses(this.courseRef);
   }
-  listenForCourses (courseRef) {
-    courseRef.on('value', (dataSnapshot) => {
-      var curCourse = [];
+
+  listenForInterests (interestRef) {
+    interestRef.on('value', (dataSnapshot) => {
+      var interests = [];
       dataSnapshot.forEach((child) => {
-            curCourse.push(child.val());
+            interests.push(child.val());
       });
       this.setState({
+        interests: interests
+      });
+    });
+  }
+
+  listenForCourses (courseRef) {
+    courseRef.on('value', (dataSnapshot) => {
+      var courses = [];
+      dataSnapshot.forEach((child) => {
+            courses.push(child.val());
+      });
+      this.setState({
+        courses: courses
       });
     });
   }
@@ -118,6 +129,32 @@ class StudentProfile extends Component {
       });
 
     });
+  }
+
+  _addCurrentClass() {
+    let temp = this.indexConClass ++;
+    this.state.curConCourse.push(temp);
+    this.setState({
+      curConCourse: this.state.curConCourse
+    });
+
+  }
+  _addPastClass() {
+    let temp = this.indexPastClass ++;
+    this.state.curPastCourse.push(temp);
+    this.setState({
+        curPastCourse: this.state.curPastCourse
+    });
+
+  }
+
+  _addInterest() {
+    let temp = this.indexInterest ++;
+    this.state.curInterest.push(temp);
+    this.setState({
+        curInterest: this.state.curInterest
+    });
+
   }
 
   _addMajor() {
@@ -187,6 +224,18 @@ class StudentProfile extends Component {
       return <DropDownInput title={"Concentration"} options={this.state.concentrations} key={i}/>
     });
 
+    let curInterest = this.state.curInterest.map((a, i) => {
+      return <DropDownInput title={"Interest"} options={this.state.interests} key={i}/>
+    });
+
+    let curConCourse = this.state.curConCourse.map((a, i) => {
+      return <DropDownInput title={"Current Classes"} options={this.state.courses} key={i}/>
+    });
+
+    let curPastCourse = this.state.curPastCourse.map((a, i) => {
+      return <DropDownInput title={"Previous Classes"} options={this.state.courses} key={i}/>
+    });
+
   return (
     <View>
       {this.state.edit == false && (
@@ -216,6 +265,10 @@ class StudentProfile extends Component {
                   </TouchableOpacity>
                 </View>
               )}
+            
+            <View style={{ width: 100, marginTop: 12 }}>
+            <Button onPress={() => this.props.navigation.navigate('chatList', this.props.navigation.state.params)}>Messages</Button>
+            </View>
 
             </View>
             <View >
@@ -235,10 +288,18 @@ class StudentProfile extends Component {
           <InfoBlock info={this.state.currentUser.currentClass + ', ' + this.state.currentUser.currentClass2} title="Current Classes" />
 
           <InfoBlock info={this.state.currentUser.pastClass + ', ' + this.state.currentUser.pastClass2} title="Previous Classes" />
-
-          <View style={{ width: 100, marginTop: 12 }}>
-            <Button onPress={() => this.props.navigation.navigate('chatList', this.props.navigation.state.params)}>Messages</Button>
+         
+          
+          
+          <View>
+          <Button style={{ marginBottom: 10 }} onPress={() => {
+              firebase.auth().signOut();
+              this.props.navigation.navigate('login');
+            }}>
+              <Text>Sign Out</Text>
+            </Button>
           </View>
+
         </ScrollView>
       )}
 
@@ -323,20 +384,65 @@ class StudentProfile extends Component {
               </TouchableOpacity>
             </CardSection>
           </View>
+          
+          <CardSection>
+            <DropDownInput title={"Interest"} options={this.state.interests} key={0}/>
+            {curInterest}
+            <TouchableOpacity
+                onPress={() => {
+                  this._addInterest()
+                  {curInterest}
+                }}
+                style={{ alignSelf: "flex-end" }}
+              >
+                <Icon name="plus-circle" size={30} color="#253A66" />
+              </TouchableOpacity>
+            </CardSection>
+          
+            <CardSection>
+            <DropDownInput title={"Current Classes"} options={this.state.courses} key={0}/>
+            {curConCourse}
+            <TouchableOpacity
+                onPress={() => {
+                  this._addCurrentClass()
+                  {curConCourse}
+                }}
+                style={{ alignSelf: "flex-end" }}
+              >
+                <Icon name="plus-circle" size={30} color="#253A66" />
+              </TouchableOpacity>
+            </CardSection>
 
-          <InfoBlock info={this.state.currentUser.interest + ', ' + this.state.currentUser.interest2} title="Interests" />
-          <Icon name="plus-circle" size={30} color="#253A66" />
+            <CardSection>
+            <DropDownInput title={"Previous Classes"} options={this.state.courses} key={0}/>
+              {curPastCourse}
+            <TouchableOpacity
+                onPress={() => {
+                  this._addPastClass()
+                  {curPastCourse}
+                }}
+                style={{ alignSelf: "flex-end" }}
+              >
+                <Icon name="plus-circle" size={30} color="#253A66" />
+              </TouchableOpacity>
+            </CardSection>
+          {/* <InfoBlock info={this.state.currentUser.interest + ', ' + this.state.currentUser.interest2} title="Interests" />
+          <Icon name="plus-circle" size={30} color="#253A66" /> */}
 
-          <InfoBlock info={this.state.currentUser.currentClass + ', ' + this.state.currentUser.currentClass2} title="Current Classes" />
+          {/* <InfoBlock info={this.state.currentUser.currentClass + ', ' + this.state.currentUser.currentClass2} title="Current Classes" />
           <Icon name="plus-circle" size={30} color="#253A66" />
 
           <InfoBlock info={this.state.currentUser.pastClass + ', ' + this.state.currentUser.pastClass2} title="Previous Classes" />
-          <Icon name="plus-circle" size={30} color="#253A66" />
+          <Icon name="plus-circle" size={30} color="#253A66" /> */}
           <View style={{ marginBottom: 30 }}>
             <Button style={{ marginTop: 10 }} onPress={() => this.setState({edit: false})}>
               <Text>Save Changes</Text>
             </Button>
-            <Button style={{ marginTop: 10 }} onPress={() => firebase.auth().signOut()}>
+            
+            <Button style={{ marginTop: 10 }} onPress={() => {
+              firebase.auth().signOut();
+              this.props.navigation.navigate('login', this.props.navigation.state.params);
+            }}>
               <Text>Sign Out</Text>
             </Button>
           </View>

@@ -5,31 +5,119 @@ import { Button, Input, CardSection } from "../components/common";
 import InfoBlock from "../components/InfoBlock";
 import textStyles from "../components/styles/text";
 import DisplayImage from "../components/DisplayImage";
+import DropDownInput from "../components/DropDownInput"
+import firebase from 'firebase';
+
+var indexInterest = 1;
+var indexConClass = 1;
+var indexPastClass = 1;
 
 class ProfessorProfile extends Component {
+  constructor(props) {
+    super(props);
+    this.userRef = firebase.database().ref('users/' + this.props.navigation.state.params.ID);
+    this.interestRef = firebase.database().ref('interests/');
+    this.courseRef = firebase.database().ref('course/');
+  };
+
   state = {
     self: 1,
+    currentUser: [],
     edit: false,
-    interests: ["Web Development", "Database Management", "Networking"],
-    currentclasses: [
-      "[CIS 432] Database Applications",
-      "[CIS 191] Web Development: Client Side"
-    ],
-    pastclasses: [
-      "[CIS 291] Web Development: Server Side",
-      "[CIS 332] Database Concepts",
-      "[CIS 180] Intro to CIS"
-    ]
+    interests: [],
+    courses: [],
+    curConCourse: [],
+    curPastCourse: [],
+    curInterest: [],
+
   };
+
+  componentDidMount(){
+    this.listenForCurrentUserValues(this.userRef);
+    this.listenForInterests(this.interestRef);
+    this.listenForCourses(this.courseRef);
+  };
+
+  listenForCurrentUserValues(userRef) {
+    userRef.on('value', (dataSnapshot) => {
+      var currentUser =[];
+      this.setState({
+        currentUser: dataSnapshot.val()
+      });
+
+    });
+  };
+
+  listenForInterests (interestRef) {
+    interestRef.on('value', (dataSnapshot) => {
+      var interests = [];
+      dataSnapshot.forEach((child) => {
+            interests.push(child.val());
+      });
+      this.setState({
+        interests: interests
+      });
+    });
+  }
+
+  listenForCourses (courseRef) {
+    courseRef.on('value', (dataSnapshot) => {
+      var courses = [];
+      dataSnapshot.forEach((child) => {
+            courses.push(child.val());
+      });
+      this.setState({
+        courses: courses
+      });
+    });
+  };
+
+  _addCurrentClass() {
+    let temp = this.indexConClass ++;
+    this.state.curConCourse.push(temp);
+    this.setState({
+      curConCourse: this.state.curConCourse
+    });
+
+  }
+  _addPastClass() {
+    let temp = this.indexPastClass ++;
+    this.state.curPastCourse.push(temp);
+    this.setState({
+        curPastCourse: this.state.curPastCourse
+    });
+
+  }
+
+  _addInterest() {
+    let temp = this.indexInterest ++;
+    this.state.curInterest.push(temp);
+    this.setState({
+        curInterest: this.state.curInterest
+    });
+
+  }
+
   render() {
+    let curInterest = this.state.curInterest.map((a, i) => {
+      return <DropDownInput title={"Interest"} options={this.state.interests} key={i}/>
+    });
+
+    let curConCourse = this.state.curConCourse.map((a, i) => {
+      return <DropDownInput title={"Current Classes"} options={this.state.courses} key={i}/>
+    });
+
+    let curPastCourse = this.state.curPastCourse.map((a, i) => {
+      return <DropDownInput title={"Previous Classes"} options={this.state.courses} key={i}/>
+    });
   return (
     <View>
     {this.state.edit == false &&(
       <ScrollView style={styles.containerStyle}>
         <View style={styles.infoContainerStyle}>
           <View style={styles.headerContentStyle}>
-            <Text style={textStyles.headerText}>Scott Weaver</Text>
-            <Text>sweaver@messiah.edu</Text>
+            <Text style={textStyles.headerText}>{this.state.currentUser.firstname + ' ' + this.state.currentUser.lastname}</Text>
+            <Text>{this.state.currentUser.email}</Text>
             {this.state.self == 0 && (
               <TouchableOpacity style={styles.sendMessage}>
                 <Text style={styles.sendMessageText}>Send Message</Text>
@@ -51,59 +139,118 @@ class ProfessorProfile extends Component {
                 </TouchableOpacity>
               </View>
             )}
+
+            <View style={{ width: 100, marginTop: 12 }}>
+            <Button onPress={() => this.props.navigation.navigate('chatList', this.props.navigation.state.params)}>Messages</Button>
+            </View>
+            
           </View>
-          <View style={styles.thumbnailContainerStyle}>
-            <Image
-              style={styles.thumbnailStyle}
-              source={{ uri: "../components/img/male-circle-512.png" }}
-            />
+
+          <View>
+            <DisplayImage id ={this.props.navigation.state.params.ID}  />
           </View>
         </View>
 
         <View>
-          <Text style={{ paddingTop: 10 }}>Frey 333</Text>
-          <Text>Computer and Information Science</Text>
-          <Text>Department Chair</Text>
+          <Text style={{ paddingTop: 10 }}>{this.state.currentUser.office}</Text>
+          <Text>{this.state.currentUser.Department}</Text>
+          <Text>{this.state.currentUser.Position}</Text>
         </View>
 
-        <InfoBlock info={this.state.interests} title="Interests" />
+        <InfoBlock info={this.state.currentUser.interest + ', ' + this.state.currentUser.interest2} title="Interests" />
 
-        <InfoBlock info={this.state.currentclasses} title="Current Classes" />
+        <InfoBlock info={this.state.currentUser.currentClass + ', ' + this.state.currentUser.currentClass2} title="Current Classes" />
 
-        <InfoBlock info={this.state.pastclasses} title="Previous Classes" />
+        <InfoBlock info={this.state.currentUser.pastClass + ', ' + this.state.currentUser.pastClass2} title="Previous Classes" />
+        
+        <Button style={{ marginTop: 10 }} onPress={() => {
+            firebase.auth().signOut();
+            this.props.navigation.navigate('login');
+            }}>
+            <Text>Sign Out </Text>
+          </Button>
+
       </ScrollView>
     )}
     {this.state.edit == true && (
       <ScrollView style={styles.containerStyle}>
         <View style={styles.infoContainerStyle}>
           <View style={styles.headerContentStyle}>
-            <Input label={"name"} value={"Scott Weaver"} />
-            <Input label={"email"} value={"sweaver@messiah.edu"} />
+          <Input label={"Name"} value={
+                this.state.currentUser.firstname + ' ' + this.state.currentUser.lastname
+              } />
+              <Input label={"Email"} value={this.state.currentUser.email} />
           </View>
           <View>
-            <DisplayImage />
+          <DisplayImage id ={this.props.navigation.state.params.ID}  />
           </View>
         </View>
 
         <View>
-          <Input label={'office'} value={"Frey 333"} />
-          <Input label={'Department'} value={"Comuter and Information Science"} />
-          <Input label={'Position'} value={"Department Chair"} />
+          <Input label={'Office'} value={this.state.currentUser.office} />
+          <Input label={'Department'} value={this.state.currentUser.Department} />
+          <Input label={'Position'} value={this.state.currentUser.Position} />
         </View>
+        
+        <CardSection>
+            <DropDownInput title={"Interest"} options={this.state.interests} key={0}/>
+            {curInterest}
+            <TouchableOpacity
+                onPress={() => {
+                  this._addInterest()
+                  {curInterest}
+                }}
+                style={{ alignSelf: "flex-end" }}
+              >
+                <Icon name="plus-circle" size={30} color="#253A66" />
+              </TouchableOpacity>
+            </CardSection>
+          
+            <CardSection>
+            <DropDownInput title={"Current Classes"} options={this.state.courses} key={0}/>
+            {curConCourse}
+            <TouchableOpacity
+                onPress={() => {
+                  this._addCurrentClass()
+                  {curConCourse}
+                }}
+                style={{ alignSelf: "flex-end" }}
+              >
+                <Icon name="plus-circle" size={30} color="#253A66" />
+              </TouchableOpacity>
+            </CardSection>
 
-        <InfoBlock info={this.state.interests} title="Interests" />
+            <CardSection>
+            <DropDownInput title={"Previous Classes"} options={this.state.courses} key={0}/>
+              {curPastCourse}
+            <TouchableOpacity
+                onPress={() => {
+                  this._addPastClass()
+                  {curPastCourse}
+                }}
+                style={{ alignSelf: "flex-end" }}
+              >
+                <Icon name="plus-circle" size={30} color="#253A66" />
+              </TouchableOpacity>
+            </CardSection>
+
+        {/* <InfoBlock info={this.state.currentUser.interest + ', ' + this.state.currentUser.interest2} title="Interests" />
         <Icon name="plus-circle" size={30} color="#253A66" />
 
-        <InfoBlock info={this.state.currentclasses} title="Current Classes" />
+        <InfoBlock info={this.state.currentUser.currentClass + ', ' + this.state.currentUser.currentClass2} title="Current Classes" />
         <Icon name="plus-circle" size={30} color="#253A66" />
 
-        <InfoBlock info={this.state.pastclasses} title="Previous Classes" />
+        <InfoBlock info={this.state.currentUser.pastClass + ', ' + this.state.currentUser.pastClass2} title="Previous Classes" />
         <Icon name="plus-circle" size={30} color="#253A66" />
+         */}
         <View style={{ marginBottom: 30 }}>
           <Button style={{ marginTop: 10 }} onPress={() => this.setState({ edit: false })}>
             <Text>Save Changes</Text>
           </Button>
-          <Button style={{ marginTop: 10 }} onPress={() => firebase.auth().signOut()}>
+          <Button style={{ marginTop: 10 }} onPress={() => {
+            firebase.auth().signOut();
+            this.props.navigation.navigate('login', this.props.navigation.state.params);
+            }}>
             <Text>Sign Out </Text>
           </Button>
         </View>

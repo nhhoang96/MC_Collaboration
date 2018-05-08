@@ -10,8 +10,13 @@ import Icon from "react-native-vector-icons/dist/FontAwesome";
 import SendBird from 'sendbird';
 
 class LoginForm extends Component {
-  state = { userID: "", password: "", error: "", loading: false, currentUser: [] };
-
+  state = { userID: "", password: "", error: "", loading: false, currentUser: [], firstTime: false};
+  constructor(props) {
+    super(props);
+    console.ignoredYellowBox = [
+      'Setting a timer'
+      ];
+  };
 
   listenForCurrentUserValues(userRef) {
     userRef.on('value', (dataSnapshot) => {
@@ -28,7 +33,18 @@ class LoginForm extends Component {
     firebase
       .auth()
       .signInWithEmailAndPassword(userID, password)
-      .then(this.onLoginSuccess.bind(this));
+      .then(this.onLoginSuccess.bind(this))
+      // .catch(
+      //   () => {
+      //     firebase.auth().createUserWithEmailAndPassword(userID, password)
+      //     .then(() => {
+      //       this.setState({firstTime: true});
+      //       this.onLoginSuccess.bind(this);
+            
+      //     })
+      //     .catch(this.onLoginFail.bind(this));
+      //   }
+      // );
       //.catch((this.onLoginFail.bind(this)));
     }
 
@@ -38,18 +54,22 @@ class LoginForm extends Component {
   }
 
   onLoginSuccess() {
-    userRef = firebase.database().ref('users/' + this.state.userID.split('@')[0]);
-    this.listenForCurrentUserValues(userRef)
-    this.props.navigation.setParams({ ID: this.state.userID.split('@')[0] });
-    this.props.navigation.navigate('checkInfo', this.props.navigation.state.params);
-
-    sb = new SendBird({ appId: '45EE91CC-2EF8-4C8B-999F-743FCC1863CD'});
-    sb.connect(this.state.userID.split('@')[0], function (user, error) {
+      userRef = firebase.database().ref('users/' + this.state.userID.split('@')[0]);
+      this.listenForCurrentUserValues(userRef)
+      this.props.navigation.setParams({ ID: this.state.userID.split('@')[0] });
+      sb = new SendBird({ appId: '45EE91CC-2EF8-4C8B-999F-743FCC1863CD'});
+      sb.connect(this.state.userID.split('@')[0], function (user, error) {
       if (error) {
         console.log(error);
         return;
       }
-    });
+      });
+
+      if (this.state.currentUser.status === 'student'){
+        this.props.navigation.navigate('checkInfo', this.props.navigation.state.params);
+      } else {
+      this.props.navigation.navigate('professor', this.props.navigation.state.params);
+    }
 
     this.setState({
       userID: "",
@@ -57,10 +77,6 @@ class LoginForm extends Component {
       loading: false,
       error: ""
     });
-
-
-
-
   }
 
 
@@ -99,6 +115,7 @@ class LoginForm extends Component {
         </CardSectionRow>
 
         <Text style={styles.errorTextStyle}>{this.state.error}</Text>
+
 
         <CardSectionRow>{this.renderButton()}</CardSectionRow>
       </Card>
