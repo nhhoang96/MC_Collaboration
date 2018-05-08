@@ -178,10 +178,17 @@ preloadImage () {
   //     this.state.image_uri.push(url);
   //   })
   // })
+  var id;
+  this.state.channel.members.map(e => {
+    if(e.userId != this.props.navigation.state.params.id){
+      id = e.userId;
+    }
+  });
+
   firebase.storage().ref('profile_images/' + this.props.navigation.state.params.id+ '.png').getDownloadURL().then((url) => {
     this.setState({image_uri: url});
   })
-  firebase.storage().ref('profile_images/' + this.state.channel.members[0].userId + '.png').getDownloadURL().then((url) => {
+  firebase.storage().ref('profile_images/' + id + '.png').getDownloadURL().then((url) => {
     this.setState({other_image_uri: url});
   })
 }
@@ -192,7 +199,7 @@ render() {
       <View style={{ height: 60, alignItems: 'center', paddingTop: 5}}>
         {this.state.channel.members.map(e => {
           if(e.userId != this.props.navigation.state.params.id)
-            return <View><Text style={textStyles.headerText}>{e.nickname}</Text>
+            return <View key={e.userId}><Text style={textStyles.headerText}>{e.nickname}</Text>
             <Text style={{textAlign: 'center'}}>{e.connectionStatus}</Text></View>
         }
         )}
